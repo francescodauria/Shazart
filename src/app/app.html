@@ -1,19 +1,31 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content"  side="left" class="tparent" >
 
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Pages</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <ion-header class="tparent">
+      <ion-toolbar color="dark" class="tparent white">
+        <div style="height: 3vw"></div>
+       <div class="menu-user-image" style="background-image: url(../assets/userimage.jpg);height: 150px;width: 150px;"></div>
+       <div style="height: 3vw"></div>
+      
+      </ion-toolbar>
+    </ion-header>
+  
+    <ion-content>
+      <ion-list no-lines>
+        <button class="tparent white" ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+        <button class="tparent white" ion-item ><img src="../assets/icon/pictures-icon-2.png" style="height: 40px;width: 40px;vertical-align: middle"><span style="vertical-align: middle">&nbsp;&nbsp;&nbsp;Top scan</span></button>
+        <button class="tparent white" ion-item ><img src="../assets/icon/prefer.png" style="height: 40px;width: 40px;vertical-align: middle"><span style="vertical-align: middle">&nbsp;&nbsp;&nbsp;Preferiti</span></button>
+        <button class="tparent white" ion-item ><img src="../assets/icon/iphone-gallery-icon-10.jpg" style="height: 40px;width: 40px;vertical-align: middle"><span style="vertical-align: middle">&nbsp;&nbsp;&nbsp;Last scan</span></button>
+        <button class="tparent white" ion-item ><img src="../assets/icon/profile.png" style="height: 40px;width: 40px;vertical-align: middle"><span style="vertical-align: middle">&nbsp;&nbsp;&nbsp;Profilo</span></button>
+        <button class="tparent white" ion-item ><img src="../assets/icon/shutdown.png" style="height: 40px;width: 40px;vertical-align: middle"><span style="vertical-align: middle">&nbsp;&nbsp;&nbsp;Logout</span></button>
+       
+        
 
-  <ion-content>
-    <ion-list>
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+      </ion-list>
+    </ion-content>
+  
+  </ion-menu>
+  
+  <ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>
+  

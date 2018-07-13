@@ -2,11 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import  {TabsPage} from "../pages/tabs/tabs";
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
-import { ListPage } from '../pages/list/list';
-
+import { PreferitiPage } from '../pages/preferiti/preferiti';
+import {ProfiloPage} from "../pages/profilo/profilo";
+import {LastScanPage} from "../pages/last-scan/last-scan";
+import {TopScanPage} from "../pages/top-scan/top-scan";
+import {ScanPage} from "../pages/scan/scan";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -15,18 +19,28 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    PreferitiPage,
+    TabsPage,
+    ProfiloPage,
+    LastScanPage,
+    TopScanPage,
+    ScanPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp,{mode:'ios'}),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage
+    PreferitiPage,
+    TabsPage,
+    ProfiloPage,
+    LastScanPage,
+    TopScanPage,
+    ScanPage
   ],
   providers: [
     StatusBar,
