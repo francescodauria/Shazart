@@ -25,8 +25,11 @@ export class PhotoInformationPage {
   }
 
   like(){
-    if(this.liked==false) this.liked=true;
-    else this.liked=true;
+    if(this.liked==false)
+      this.liked=true;
+    else if(this.liked==true)
+      this.liked=false;
+
   }
 
 

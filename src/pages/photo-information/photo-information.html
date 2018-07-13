@@ -19,16 +19,20 @@
 
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/507px-Mona_Lisa.jpg" class="about-image profile-background-image" style="vertical-align:middle;">
 
-
-
     <div class="row like-btn">
       <div class="col text-right">
-        <div class="bg-color-red like-button-with-text" onclick="like()">
-          <button>
-          <img src="assets/icon/heart.png" style="vertical-align: middle">
-          </button>
-        </div>
+
+      <div [ngClass]="liked? 'bg-color-white like-button-with-text' : 'bg-color-red like-button'"(click)="this.like()">
+
+        <ion-icon name="heart" [ngClass]="liked? 'color-red' : 'color-white'" >
+        </ion-icon>
+        <span *ngIf="!liked">Like</span><!-- -->
+
+
       </div>
     </div>
+
+
+</div>
   </div>
 </ion-content>
