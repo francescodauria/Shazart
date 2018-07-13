@@ -11,6 +11,7 @@ import {TopScanPage} from "../pages/top-scan/top-scan";
 import {ScanPage} from "../pages/scan/scan";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {PhotoInformationPage} from "../pages/photo-information/photo-information";
 
 export interface PageInterface{
   title:string;
@@ -26,7 +27,7 @@ export interface PageInterface{
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   pages: PageInterface[] = [
-    {title: 'Scan', pageName: ScanPage, icon: "assets/icon/pictures-icon-2.png"},
+    {title: 'Scan', pageName: ScanPage, icon: "assets/icon/camera.png"},
     {title: 'Profilo', pageName: TabsPage,  icon: "assets/icon/profile.png"},
     {title: 'Top scan', pageName:TopScanPage, icon:"assets/icon/iphone-gallery-icon-10.jpg"}
 

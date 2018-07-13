@@ -13,6 +13,7 @@ import {TopScanPage} from "../pages/top-scan/top-scan";
 import {ScanPage} from "../pages/scan/scan";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {PhotoInformationPage} from "../pages/photo-information/photo-information";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ProfiloPage,
     LastScanPage,
     TopScanPage,
-    ScanPage
+    ScanPage,
+    PhotoInformationPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ProfiloPage,
     LastScanPage,
     TopScanPage,
-    ScanPage
+    ScanPage,
+    PhotoInformationPage
   ],
   providers: [
     StatusBar,

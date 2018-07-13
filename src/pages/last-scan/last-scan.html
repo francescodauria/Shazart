@@ -35,12 +35,13 @@
   </ion-row>
 <br><br>
   <ion-grid>
+    <!--for per caricare le immagini-->
     <ion-row style="height: 10cm">
-      <ion-col col-4 class="grid_img" >
+      <ion-col col-4 class="grid_img" (click)="showDetails()">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/507px-Mona_Lisa.jpg" alt="">
       </ion-col>
-      <ion-col col-4 class="grid_img" >
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/507px-Mona_Lisa.jpg" alt="">
+      <ion-col col-4 class="grid_img" (click)="showDetails()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/La_nascita_di_Venere_%28Botticelli%29.jpg" alt="">
       </ion-col>
       <ion-col col-4 class="grid_img" >
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/507px-Mona_Lisa.jpg" alt="">
