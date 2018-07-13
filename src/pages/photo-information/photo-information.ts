@@ -15,6 +15,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PhotoInformationPage {
 
+  liked:boolean=false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -22,6 +24,10 @@ export class PhotoInformationPage {
     console.log('ionViewDidLoad PhotoInformationPage');
   }
 
+  like(){
+    if(this.liked==false) this.liked=true;
+    else this.liked=true;
+  }
 
 
 }
