@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 
-import {ScanPage} from "../scan/scan";
+
 import {ProfiloPage} from "../profilo/profilo";
+import {LastScanPage} from "../last-scan/last-scan";
+import {PreferitiPage} from "../preferiti/preferiti";
 
 //import { Camera, CameraOptions } from '@ionic-native/camera';
 
@@ -11,9 +13,9 @@ import {ProfiloPage} from "../profilo/profilo";
 export class TabsPage {
 
   //in base all'ordine in cui sono disposti vengono caricate le varie pagine
-
-  tab1Root = ScanPage;
-  tab2Root = ProfiloPage;
+  tab1Root = ProfiloPage;
+  tab2Root = LastScanPage;
+  tab3Root = PreferitiPage;
 
 
   constructor(/*private camera: Camera*/) {

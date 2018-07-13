@@ -1,3 +1,22 @@
 page-last-scan {
 
 }
+.avatar {
+  border-radius: 100%;
+  position: absolute;
+}
+
+.edit-button {
+  background: #fff;
+  border: 1px solid #ccc;
+  font-size: 13px;
+  border-radius: 3px;
+  padding: 5px;
+  font-weight: bold;
+  width: 90%;
+  margin-right: 30px;
+}
+
+.edit-button:active {
+  border-color: #dce2ed;
+}

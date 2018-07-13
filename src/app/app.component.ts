@@ -14,7 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 export interface PageInterface{
   title:string;
-  pageName:string;
+  pageName:any;
   tabComponent?:any;
   index?:number;
   icon?:string;
@@ -26,16 +26,13 @@ export interface PageInterface{
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
   pages: PageInterface[] = [
-    {title: 'Scan', pageName: 'ScanPage', tabComponent: 'ScanPage', index: 0, icon: 'camera'},
-    {title: 'Profile', pageName: 'ProfiloPage', tabComponent: 'ProfiloPage', index: 1, icon: 'person'},
-    {title: 'Hello Ionic', pageName:'HelloIonicPage'},
-    {title: 'Preferiti', pageName:'PreferitiPage'},
-    {title: 'Last scan', pageName:'LastScanPage'},
-    {title: 'Top scan', pageName:'TopScanPage'}
+    {title: 'Scan', pageName: ScanPage, icon: "assets/icon/pictures-icon-2.png"},
+    {title: 'Profilo', pageName: TabsPage,  icon: "assets/icon/profile.png"},
+    {title: 'Top scan', pageName:TopScanPage, icon:"assets/icon/iphone-gallery-icon-10.jpg"}
 
   ];
   // make HelloIonicPage the root (or first) page
-  rootPage = TabsPage;
+  rootPage = HelloIonicPage;
 
   constructor(
     public platform: Platform,
@@ -60,17 +57,11 @@ export class MyApp {
 
 
   openPage(page: PageInterface) {
-    let params = {};
-    if (page.index!=undefined) {
-      params = {tabIndex: page.index};
-    }
-    if (this.nav.getActiveChildNav() && page.index != undefined) {
-      this.nav.getActiveChildNav().select(page.index);
-    }
-    else {
-      this.nav.setRoot(page.pageName,params);
-    }
-    this.menu.close();
+
+
+      this.nav.setRoot(page.pageName);
+
+      this.menu.close();
   }
 
 

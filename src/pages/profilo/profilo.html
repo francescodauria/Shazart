@@ -1,29 +1,44 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-buttons start left>
-      <button ion-button icon-only (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>Edit Profile</ion-title>
-
-    <ion-buttons end>
-      <button ion-button icon-only (click)="updateProfile()">
-        <ion-icon name="checkmark" color="primary"></ion-icon>
-      </button>
-    </ion-buttons>
+<ion-header >
+  <ion-navbar color="primary"  >
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Shazart</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-<ion-content padding>
 
+
+
+<ion-content padding>
+  <ion-row padding>
+    <!-- Avatar -->
+    <ion-col col-3>
+      <img [src]="user_data.profile_img" class="avatar" alt="" style="height: 70px; width: 70px">
+    </ion-col>
+    <!-- Information about user -->
+    <ion-col col-3 text-center >
+      <h6>21</h6>
+      <p no-padding no-margin>posts</p>
+    </ion-col>
+    <ion-col col-3 text-center>
+      <h6>114</h6>
+      <p no-paddin no-margin>followers</p>
+    </ion-col>
+    <ion-col col-3 text-center>
+      <h6>119</h6>
+      <p no-paddin no-margin>following</p>
+    </ion-col>
+  </ion-row>
+  <ion-row no-padding no-margin>
+    <ion-col no-padding no-margin col-4></ion-col>
+    <ion-col no-padding no-margin text-center col-8>
+      <button class="edit-button">Cambia foto profilo</button>
+    </ion-col>
+    <ion-col col-3></ion-col>
+  </ion-row>
   <!-- Profile picture -->
-  <div text-center>
-    <img [src]="user_data.profile_img" class="edit-avatar" alt="">
-    <p class="change-text">Change Photo</p>
-  </div>
+
 
   <!-- Form -->
   <ion-item>
