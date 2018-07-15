@@ -24,9 +24,12 @@
 
       <div [ngClass]="liked? 'bg-color-white like-button-with-text' : 'bg-color-red like-button'"(click)="this.like()">
 
+
         <ion-icon name="heart" [ngClass]="liked? 'color-red' : 'color-white'" >
+
         </ion-icon>
-        <span *ngIf="!liked">Like</span><!-- -->
+
+        <span *ngIf="liked">Liked</span><!-- -->
 
 
       </div>
@@ -34,5 +37,6 @@
 
 
 </div>
+
   </div>
 </ion-content>

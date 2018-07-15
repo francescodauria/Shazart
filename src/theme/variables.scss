@@ -124,27 +124,27 @@ $colors: (
 }
 
 
- ion-nav{
-	transition: all .75s cubic-bezier(.78,.37,.62,.86)!important;
+ion-nav{
+  transition: all .25s cubic-bezier(.78,.37,.62,.86)!important;
 }
 
 .ion-page,.show-tabbar{
-			transition: all .40s cubic-bezier(.78,.37,.62,.86) !important;
-      transform: scale3d(1, 1, 1) rotateY(0) translateX(0) !important;
+  transition: all .15s cubic-bezier(.78,.37,.62,.86) !important;
+  transform: scale3d(1, 1, 1) rotateY(0) translateX(0) !important;
 }
 
 
 .show-menu + ion-nav{
-    perspective: 320px;
-		.ion-page,.show-tabbar{
+  perspective: 320px;
+  .ion-page,.show-tabbar{
     transform: scale3d(0.9, 0.9, 0.9) rotateY(-12deg) translateX(-50px) !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     overflow: hidden !important;
-        ion-content {
-           overflow: hidden !important;
-        }
-		}
-	}
+    ion-content {
+      overflow: hidden !important;
+    }
+  }
+}
 
  .nav-decor {
    @extend .tparent;
