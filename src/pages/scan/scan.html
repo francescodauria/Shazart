@@ -6,14 +6,40 @@
 -->
 <ion-header >
   <ion-navbar color="primary"  >
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+    <button ion-button menuToggle (click)="stopCamera()">
+      <ion-icon name="menu" ></ion-icon>
     </button>
     <ion-title>Shazart</ion-title>
+    <button ion-button style="float:right" (click)="stopCamera()">
+      <ion-icon *ngIf="camera" style="zoom:3.0;" name="close"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="background">
+
+  <h5>This is camera Preview Application..</h5>
+  <div class="displaybottom">
+    <button ion-button (click)="startCamera()"> Start Camera</button>
+
+    <button ion-button (click)="takePicture()"> Take Picture Camera</button>
+
+    <button ion-button (click)="SwitchCamera()"> Switch  Camera</button>
+
+    <button ion-button (click)="showCamera()"> Show Camera</button>
+
+    <button ion-button (click)="hideCamera()"> Hide Camera</button>
+  </div>
+
+  <button ion-button (click)="stopCamera()"> Stop Camera</button>
+
+<!--
+  <div class="pictures">
+    <p><img id="previewPicture" width="200" /></p>
+    <!--<p><img id="originalPicture" width="200"/></p>-->
+
+
+
 
 </ion-content>
