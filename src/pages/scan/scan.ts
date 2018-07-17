@@ -41,28 +41,16 @@ export class ScanPage {
       this.camera=true;
       this.color=true;
 
-      let elements=document.getElementsByClassName("gradient-bg") as  HTMLCollectionOf<Element>;
-      for(this.i=0; this.i<elements.length; this.i++)
-      {
-        elements.item(this.i).className="trasparente";
-      }
 
-      elements=document.getElementsByClassName("ios") as HTMLCollectionOf<Element>;
-      for(this.i=0; this.i<elements.length; this.i++)
-      {
-        elements.item(this.i).className="trasparente";
-      }
+
+
     }
 
     stopCamera(){
       CameraPreview.stopCamera();
       this.camera=false;
       this.color=false;
-      let elements=document.getElementsByClassName("trasparente") as  HTMLCollectionOf<Element>;
-      for(this.i=0; this.i<elements.length; this.i++)
-      {
-        elements.item(this.i).className="gradient-bg";
-      }
+
 
 
 
