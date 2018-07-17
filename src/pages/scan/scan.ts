@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
-import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 import {style} from "@angular/animations";
 /**
  * Generated class for the ScanPage page.
@@ -20,8 +20,10 @@ export class ScanPage {
   public calcWidth : number;
   public camera:boolean;
   public i:number;
-  public color:boolean;
-  constructor(private nav: NavController, private zone:NgZone) {
+
+  constructor(private nav: NavController, private zone:NgZone, public platform:Platform, public menu:MenuController) {
+
+    this.menu.swipeEnable(false);
     this.startCamera();
     this.zone.run(() => {
       this.getWidth = window.screen.width;
@@ -33,31 +35,26 @@ export class ScanPage {
     this.calcWidth = this.getWidth - 80;  // Calculate the width of device and substract 80 from device width;
 
     console.log('calc width', this.calcWidth);
+
   }
     startCamera(){
       // let react = {x: 40, y: 100, width: this.calcWidth ,height: 220}   //Decrepted due to previous code
       CameraPreview.startCamera({x: 0, y: 40, width: window.screen.width, height: window.screen.height, toBack: true, previewDrag: false, tapPhoto: false, tapFocus:true, camera:'rear'});
       //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
       this.camera=true;
-      this.color=true;
-
-
-
+      this.menu.swipeEnable(false);
 
     }
 
     stopCamera(){
       CameraPreview.stopCamera();
       this.camera=false;
-      this.color=false;
-
-
+      this.menu.swipeEnable(true);
 
 
     }
 
     takePicture(){
-
       // let size = {maxWidth: 1024, maxHeight: 640};
       // CameraPreview.takePicture(size);         //Decrepted
       CameraPreview.takePicture({shutterSound:false},function(imgData){
