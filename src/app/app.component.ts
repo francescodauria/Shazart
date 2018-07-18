@@ -12,6 +12,7 @@ import {ScanPage} from "../pages/scan/scan";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {PhotoInformationPage} from "../pages/photo-information/photo-information";
+import {LoginPage} from "../pages/login/login";
 
 export interface PageInterface{
   title:string;
@@ -33,7 +34,7 @@ export class MyApp {
 
   ];
   // make HelloIonicPage the root (or first) page
-  rootPage = HelloIonicPage;
+  rootPage = LoginPage;
 
   constructor(
     public platform: Platform,
@@ -64,6 +65,10 @@ export class MyApp {
       this.nav.setRoot(page.pageName);
 
       this.menu.close();
+  }
+
+  public logout(){
+    this.nav.setRoot(LoginPage,{animation:'ios-transition',direction:'forward'});
   }
 
 
