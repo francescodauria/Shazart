@@ -5,8 +5,28 @@ page-scan{
     bottom: 0;
   }
 
+  #startScan{
+    border-radius: 50%;
+    height:200px;
+    width:200px;
+  }
+  .displaybottom{
+    position: absolute;
+    top: -25%;
+    left:22.5%;
+  }
+  .img-with-text {
+    text-align: center;
+  }
 
-
+  #buttonText{
+    margin-bottom: 40px;
+  }
+  .img-with-text img {
+    margin-top: 100px;
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 
