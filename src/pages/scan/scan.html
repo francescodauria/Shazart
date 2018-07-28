@@ -18,35 +18,40 @@
 </ion-header>
 
 
-<ion-content padding id="fotoBackground" [style.background]="camera ? 'transparent' : 'white'" style="overflow-y: hidden">
-<!--
-  <h5 id="testo">This is camera Preview Application..</h5>-->
-<div class="displaybottom">
-  <button id="startScan" *ngIf=!camera ion-button style="display: block; margin: 0 auto;"(click)="startCamera()">
-  <div class="img-with-text">
-    <img src="assets/icon/scan-button.png" alt="sometext" />
-    <p id="buttonText" >Inizia scansione</p>
-  </div>
-  </button>
+<!--<ion-content padding id="fotoBackground" [style.background]="camera ? 'transparent' : 'white'" style="overflow-y: hidden">-->
+<ion-content padding id="fotoBackground" [ngClass]="camera ? 'trasparente' : 'background'" style="overflow-y: hidden">
+
+
+       <!--
+       <h5 id="testo">This is camera Preview Application..</h5>-->
+    <div class="displaybottom">
+      <button id="startScan" *ngIf=!camera ion-button style="display: block; margin: 0 auto;"(click)="startCamera()">
+        <div class="img-with-text">
+          <img src="assets/icon/scan-button.png" alt="sometext" />
+          <p id="buttonText" >Start scan</p>
+        </div>
+      </button>
+    <!--
+       <button ion-button (click)="takePicture()"> Take Picture Camera</button>
+
+          <button ion-button (click)="SwitchCamera()"> Switch  Camera</button>
+
+          <button ion-button (click)="showCamera()"> Show Camera</button>
+
+          <button ion-button (click)="hideCamera()"> Hide Camera</button>-->
   <!--
-     <button ion-button (click)="takePicture()"> Take Picture Camera</button>
-
-        <button ion-button (click)="SwitchCamera()"> Switch  Camera</button>
-
-        <button ion-button (click)="showCamera()"> Show Camera</button>
-
-        <button ion-button (click)="hideCamera()"> Hide Camera</button>-->
-<!--
-  <button ion-button (click)="stopCamera()"> Stop Camera</button>
--->
-</div>
-
+    <button ion-button (click)="stopCamera()"> Stop Camera</button>
+  -->
   <!-- <div class="pictures">
       <p><img id="previewPicture" width="200" /></p>
      <p><img id="originalPicture" width="200"/></p>
    </div>-->
+  </div>
 
-  </ion-content>
+</ion-content>
 
-  <img *ngIf="camera" id="gif" src="assets/imgs/scan.gif">
+<img *ngIf="camera" id="gif" src="assets/imgs/scan.gif">
 
+<div  *ngIf="!camera" class="black">
+
+</div>

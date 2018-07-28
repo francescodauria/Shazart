@@ -58,7 +58,7 @@ export class ScanPage {
       // let size = {maxWidth: 1024, maxHeight: 640};
       // CameraPreview.takePicture(size);         //Decrepted
       CameraPreview.takePicture(function(imgData){
-        (<HTMLInputElement>document.getElementById('previewPicture')).src = 'data:image/jpeg;base64,' + imgData;
+       // (<HTMLInputElement>document.getElementById('previewPicture')).src = 'data:image/jpeg;base64,' + imgData;
       });
 
     }
