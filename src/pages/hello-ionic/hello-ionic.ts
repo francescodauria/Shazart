@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: 'hello-ionic.html'
 })
 export class HelloIonicPage {
+  utente:string;
   constructor() {
-
+  this.utente=localStorage.getItem("utente");
   }
 }

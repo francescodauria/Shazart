@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
 import {HelloIonicPage} from "../hello-ionic/hello-ionic";
+import {MyApp} from "../../app/app.component";
 
 /**
  * Generated class for the LoginPage page.
@@ -26,6 +27,8 @@ export class LoginPage {
   }
 
   public login() {
+    utente:
+    localStorage.setItem("utente","");
     this.navCtrl.setRoot(HelloIonicPage);
     this.menu.enable(true);
   }

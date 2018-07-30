@@ -59,7 +59,7 @@ export class MyApp {
   openPage(page: PageInterface) {
 
 
-      this.nav.setRoot(page.pageName);
+      this.nav.setRoot(page.pageName,);
 
       this.menu.close();
   }

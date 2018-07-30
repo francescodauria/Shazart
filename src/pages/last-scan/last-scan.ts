@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PhotoInformationPage} from "../photo-information/photo-information";
 
+
 /**
  * Generated class for the LastScanPage page.
  *
@@ -18,6 +19,7 @@ export class LastScanPage {
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {
