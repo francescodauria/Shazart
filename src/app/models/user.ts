@@ -13,6 +13,7 @@ export class User{
   private _mail?:string;
   private _numero?:string;
   private _sesso?:string;
+  private _image?:string;
 
   constructor(username: string, password: string) {
     this._username = username;
@@ -105,5 +106,13 @@ export class User{
 
   set sesso(value: string) {
     this._sesso = value;
+  }
+
+  get image(): string {
+    return this._image;
+  }
+
+  set image(value: string) {
+    this._image = value;
   }
 }

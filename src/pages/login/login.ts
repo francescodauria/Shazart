@@ -27,7 +27,6 @@ export class LoginPage {
   }
 
   public login() {
-    utente:
     localStorage.setItem("utente","");
     this.navCtrl.setRoot(HelloIonicPage);
     this.menu.enable(true);

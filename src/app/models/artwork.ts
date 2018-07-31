@@ -8,10 +8,12 @@ export class Artwork{
   private _ubicazione:string;
   private _tipologia:string;
   private _dimensioni:string;
+  private _img:string;
+  private _img_prev:string;
 
 
 
-  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni:number, ubicazione:string, tipologia:string, dimensioni:string) {
+  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni:number, ubicazione:string, tipologia:string, dimensioni:string, img:string, img_prev:string) {
     this._titolo = titolo;
     this._anno = anno;
     this._descrizione = descrizione;
@@ -21,6 +23,8 @@ export class Artwork{
     this._ubicazione=ubicazione;
     this._tipologia=tipologia;
     this._dimensioni=dimensioni;
+    this._img=img;
+    this._img_prev;img_prev;
   }
 
 
@@ -93,5 +97,21 @@ export class Artwork{
 
   set dimensioni(value: string) {
     this._dimensioni = value;
+  }
+
+  get img(): string {
+    return this._img;
+  }
+
+  set img(value: string) {
+    this._img = value;
+  }
+
+  get img_prev(): string {
+    return this._img_prev;
+  }
+
+  set img_prev(value: string) {
+    this._img_prev = value;
   }
 }
