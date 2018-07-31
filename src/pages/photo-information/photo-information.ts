@@ -14,6 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'photo-information.html',
 })
 export class PhotoInformationPage {
+  images = ['logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png'];
 
   liked:boolean=false;
 
@@ -31,6 +32,8 @@ export class PhotoInformationPage {
       this.liked=false;
 
   }
-
-
+  showDetailsPhoto()
+  {
+    this.navCtrl.push(PhotoInformationPage);
+  }
 }

@@ -15,6 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {PhotoInformationPage} from "../pages/photo-information/photo-information";
 import {LoginPage} from "../pages/login/login";
+import {IonicImageViewerModule} from "ionic-img-viewer";
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import {LoginPage} from "../pages/login/login";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp,{mode:'ios'}),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

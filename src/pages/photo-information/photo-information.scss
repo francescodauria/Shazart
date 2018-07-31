@@ -1,10 +1,47 @@
 page-photo-information {
 
+  ion-slide.swiper-slide {
+    left: 25%;
+  }
+
+  .slide-zoom {
+    background: #e6e6e6;
+  }
+
+  .thumb-img {
+    padding: 5px;
+    border-radius: 30%;
+    height:120px;
+  }
   ion-icon{
     transition: all .25s
   }
-
-
+  .image-slider{
+    height: 170px;
+    background-color: #fff;
+  }
+  .ion-slide,.slide-zoom{
+    background-color: #296881;
+    margin-left:5px;
+    margin-right: 5px;
+    border-style: double;
+    border-color: #fff;
+  }
+  .artista,.titolo{
+    margin: 0px;
+   color: #fff ;
+  }
+  .artista{
+    margin-top: 5px;
+    font-size: small;
+  }
+  .titolo{
+    font-size: smaller;
+  }
+  .slider-div{
+    border-color: #000;
+    border-width: medium;
+  }
 .like-span-icon{
   position: absolute;
   margin-top: 24px;

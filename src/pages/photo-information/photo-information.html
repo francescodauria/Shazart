@@ -17,7 +17,7 @@
 
 
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/507px-Mona_Lisa.jpg" class="about-image profile-background-image" style="vertical-align:middle;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/La_nascita_di_Venere_%28Botticelli%29.jpg" class="about-image profile-background-image" style="vertical-align:bottom;" imageViewer>
 
     <div class="row like-btn">
       <div class="col text-right">
@@ -46,5 +46,25 @@
     <h3 class="titolo_opera">Titolo dell'opera</h3>
     <p id="descrizione">Qui va la descrizione dell'opera</p>
 
+  </div>
+  <div class="slider-div">
+  <h5 style="margin-bottom: 0.5rem">CONSIGLIATI PER ARTISTA</h5>
+  <ion-slides class="image-slider" loop="true" slidesPerView="2">
+    <ion-slide *ngFor="let img of images" class="ion-slide" (click)="showDetailsPhoto()">
+      <img src="assets/imgs/{{img}}" class="thumb-img"/>
+      <h4 class="titolo">Titolo opera</h4>
+      <p class="artista">Artista</p>
+    </ion-slide>
+  </ion-slides>
+  </div>
+  <div class="slider-div">
+    <h5 style="margin-bottom: 0.5rem; margin-top:1rem">CONSIGLIATI PER PERIODO</h5>
+    <ion-slides class="image-slider" loop="true" slidesPerView="2">
+      <ion-slide *ngFor="let img of images" class="ion-slide" (click)="showDetailsPhoto()">
+        <img src="assets/imgs/{{img}}" class="thumb-img"/>
+        <p class="titolo">Titolo opera</p>
+        <p class="artista">Artista</p>
+      </ion-slide>
+    </ion-slides>
   </div>
 </ion-content>
