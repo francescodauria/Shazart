@@ -76,6 +76,8 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Courgette');
 
 // px to vw convter
 @function get-vw($target) {

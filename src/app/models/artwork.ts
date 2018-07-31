@@ -10,6 +10,7 @@ export class Artwork{
   private _dimensioni:string;
   private _img:string;
   private _img_prev:string;
+  private _dataScansione?:Date;
 
 
 
@@ -113,5 +114,13 @@ export class Artwork{
 
   set img_prev(value: string) {
     this._img_prev = value;
+  }
+
+  get dataScansione(): Date {
+    return this._dataScansione;
+  }
+
+  set dataScansione(value: Date) {
+    this._dataScansione = value;
   }
 }
