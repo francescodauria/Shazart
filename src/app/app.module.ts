@@ -16,6 +16,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {PhotoInformationPage} from "../pages/photo-information/photo-information";
 import {LoginPage} from "../pages/login/login";
 import {IonicImageViewerModule} from "ionic-img-viewer";
+import { GoogleCloudVisionServiceProvider } from '../providers/google-cloud-vision-service/google-cloud-vision-service';
+import {HttpClientModule} from "@angular/common/http";
+import {HttpModule} from "@angular/http";
 
 
 @NgModule({
@@ -33,6 +36,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
     LoginPage
   ],
   imports: [
+    HttpClientModule,
+    HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp,{mode:'ios'}),
     IonicImageViewerModule
@@ -54,7 +59,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GoogleCloudVisionServiceProvider
   ]
 })
 export class AppModule {}

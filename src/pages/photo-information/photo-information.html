@@ -17,7 +17,7 @@
 
 
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/4/47/La_nascita_di_Venere_%28Botticelli%29.jpg" class="about-image profile-background-image" style="vertical-align:bottom;" imageViewer>
+    <img [src]=foto class="about-image profile-background-image" style="vertical-align:bottom;" imageViewer>
 
     <div class="row like-btn">
       <div class="col text-right">
@@ -44,7 +44,7 @@
   <div>
 &nbsp;&nbsp;
     <h3 class="titolo_opera">Titolo dell'opera</h3>
-    <p id="descrizione">Qui va la descrizione dell'opera</p>
+    <p id="descrizione">{{information|json}}</p>
 
   </div>
   <div class="slider-div">

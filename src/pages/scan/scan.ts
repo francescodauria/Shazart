@@ -2,6 +2,9 @@ import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 import {style} from "@angular/animations";
 import {Observable} from 'rxjs'
+import {Artwork} from "../../app/models/artwork";
+import {PhotoInformationPage} from "../photo-information/photo-information";
+import {GoogleCloudVisionServiceProvider} from "../../providers/google-cloud-vision-service/google-cloud-vision-service";
 /**
  * Generated class for the ScanPage page.
  *
@@ -21,9 +24,11 @@ export class ScanPage {
   public calcWidth : number;
   public camera:boolean;
   public i:number;
+  public risultato:string;
+  public porta_a_informazioni:boolean=true;
 
-  constructor(private nav: NavController, private zone:NgZone, public platform:Platform, public menu:MenuController) {
 
+  constructor(public nav: NavController, private zone:NgZone, public platform:Platform, public vision: GoogleCloudVisionServiceProvider, public menu:MenuController) {
     this.menu.swipeEnable(false);
     this.startCamera();
     this.zone.run(() => {
@@ -59,10 +64,21 @@ export class ScanPage {
     takePicture(){
       // let size = {maxWidth: 1024, maxHeight: 640};
       // CameraPreview.takePicture(size);         //Decrepted
-      CameraPreview.takePicture(function(){
+      CameraPreview.takePicture(imgData => {
+
+          this.vision.getInformation(imgData).subscribe((result) => this.risultato=result.json().responses[0].logoAnnotations[0].description, err=> {this.risultato=err;});
+         if(this.porta_a_informazioni==true && this.risultato!=undefined)
+         {
+           this.nav.push(PhotoInformationPage,{information:this.risultato,foto:imgData});
+           this.stopCamera();
+           this.porta_a_informazioni=false;
+
+         }
+
+
+
         //alert("Ho scattato");
       });
-
     }
 
 

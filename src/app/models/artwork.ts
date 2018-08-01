@@ -14,7 +14,6 @@ export class Artwork{
   private _like:boolean;
 
 
-
   constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni:number, ubicazione:string, tipologia:string, dimensioni:string, img:string, img_prev:string, like:boolean) {
     this._titolo = titolo;
     this._anno = anno;
@@ -29,7 +28,6 @@ export class Artwork{
     this._img_prev;img_prev;
     this._like=like;
   }
-
 
   get scansioni(): number {
     return this._scansioni;

@@ -15,10 +15,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PhotoInformationPage {
   images = ['logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png'];
-
+  public information:any;
+  public foto:any;
   liked:boolean=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.information=this.navParams.get('information');
+    this.foto='data:image/jpeg;base64,'+this.navParams.get('foto');
   }
 
   ionViewDidLoad() {
