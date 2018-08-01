@@ -2,6 +2,8 @@ page-top-scan {
   .image-scan-pari{
     height:50%;
     width: 50%;
+    border-bottom-right-radius: 30%;
+    border-top-left-radius: 30%;
   }
 
   .description-scan-pari{
@@ -28,6 +30,8 @@ page-top-scan {
   .image-scan-dispari{
     height:50%;
     width: 50%;
+    border-bottom-left-radius: 30%;
+    border-top-right-radius: 30%;
   }
 
   .description-scan-dispari{
@@ -58,11 +62,20 @@ page-top-scan {
     margin-left: -5px;
     background-color: white;
   }
+  .riga_dispari{
+    border-top-right-radius: 30%;
+    border-bottom-left-radius: 20%;
+  }
+  .riga_pari{
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 20%;
+  }
   ion-content{
     background-color: #EFEFEF !important;
   }
   #titolo-top-scan{
     font-family: "Courgette", sans-serif;
     text-align: center;
+    margin-bottom: 20px;
   }
 }

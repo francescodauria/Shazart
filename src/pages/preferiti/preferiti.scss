@@ -1,5 +1,15 @@
 page-preferiti {
-
+  .background{
+    background-size: 130%,100%;
+    background-image:url(../assets/backgrounds/240-canova-amore-e-psiche.jpg);
+    background-repeat: no-repeat;
+  }
+  .black{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255,255,255);
+    opacity: 0;
+  }
 }
 .avatar {
   border-radius: 100%;

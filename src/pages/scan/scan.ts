@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 import {style} from "@angular/animations";
+import {Observable} from 'rxjs'
 /**
  * Generated class for the ScanPage page.
  *
@@ -35,6 +36,7 @@ export class ScanPage {
     this.calcWidth = this.getWidth - 80;  // Calculate the width of device and substract 80 from device width;
 
     console.log('calc width', this.calcWidth);
+    Observable.interval(2000).subscribe(x=>{this.takePicture();});
 
   }
     startCamera(){
@@ -57,8 +59,8 @@ export class ScanPage {
     takePicture(){
       // let size = {maxWidth: 1024, maxHeight: 640};
       // CameraPreview.takePicture(size);         //Decrepted
-      CameraPreview.takePicture(function(imgData){
-       // (<HTMLInputElement>document.getElementById('previewPicture')).src = 'data:image/jpeg;base64,' + imgData;
+      CameraPreview.takePicture(function(){
+        //alert("Ho scattato");
       });
 
     }

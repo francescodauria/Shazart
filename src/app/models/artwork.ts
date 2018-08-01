@@ -11,10 +11,11 @@ export class Artwork{
   private _img:string;
   private _img_prev:string;
   private _dataScansione?:Date;
+  private _like:boolean;
 
 
 
-  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni:number, ubicazione:string, tipologia:string, dimensioni:string, img:string, img_prev:string) {
+  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni:number, ubicazione:string, tipologia:string, dimensioni:string, img:string, img_prev:string, like:boolean) {
     this._titolo = titolo;
     this._anno = anno;
     this._descrizione = descrizione;
@@ -26,6 +27,7 @@ export class Artwork{
     this._dimensioni=dimensioni;
     this._img=img;
     this._img_prev;img_prev;
+    this._like=like;
   }
 
 
@@ -122,5 +124,13 @@ export class Artwork{
 
   set dataScansione(value: Date) {
     this._dataScansione = value;
+  }
+
+  get like(): boolean {
+    return this._like;
+  }
+
+  set like(value: boolean) {
+    this._like = value;
   }
 }
