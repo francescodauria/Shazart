@@ -4,8 +4,8 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title style="font-family: 'Pacifico', sans-serif;">Shazart</ion-title>
-    <button ion-button style="float:right">
-      <ion-icon style="zoom:3.0;" name="checkmark"></ion-icon>
+    <button ion-button class="bottone" style="float:right">
+      <ion-icon style="zoom:4;" name="checkmark"></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
@@ -14,25 +14,26 @@
 
 
 <ion-content padding>
-  <ion-row padding>
+  <ion-row>
     <!-- Avatar -->
     <ion-col col-3>
-      <img [src]="user_data.profile_img" class="avatar" alt="" style="height: 70px; width: 70px">
+      <img src="assets/icon/profile.png" class="avatar" alt="">
     </ion-col>
     <!-- Information about user -->
-    <ion-col col-3 text-center >
-      <h6>4</h6>
-      <p no-padding no-margin>Photo scan</p>
+    <ion-col col-3 text-center style="padding-top:25px">
+      <h6>21</h6>
+      <p no-padding no-margin>Scan</p>
     </ion-col>
-    <ion-col col-3 text-center>
-      <h6>4</h6>
+    <ion-col col-3 text-center style="padding-top:25px">
+      <h6>114</h6>
       <p no-paddin no-margin>Preferite</p>
     </ion-col>
-    <ion-col col-3 text-center>
+    <ion-col col-3 text-center style="padding-top:25px">
       <h6>0</h6>
       <p no-paddin no-margin>Condivise</p>
     </ion-col>
   </ion-row>
+  <br><br>
   <ion-row no-padding no-margin>
     <ion-col no-padding no-margin col-4></ion-col>
     <ion-col no-padding no-margin text-center col-8>

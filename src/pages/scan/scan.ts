@@ -50,6 +50,8 @@ export class ScanPage {
       //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
       this.camera=true;
       this.menu.swipeEnable(false);
+      this.porta_a_informazioni=true;
+      this.risultato=undefined;
 
     }
 
@@ -62,11 +64,12 @@ export class ScanPage {
     }
 
     takePicture(){
-      // let size = {maxWidth: 1024, maxHeight: 640};
+      let size = {maxWidth: 640, maxHeight: 480};
       // CameraPreview.takePicture(size);         //Decrepted
-      CameraPreview.takePicture(imgData => {
+      let logoJSON:any;
+      CameraPreview.takePicture(size,imgData => {
 
-          this.vision.getInformation(imgData).subscribe((result) => this.risultato=result.json().responses[0].logoAnnotations[0].description, err=> {this.risultato=err;});
+          this.vision.getInformation(imgData).subscribe((result) => {logoJSON=result.json().responses[0].logoAnnotations; if(logoJSON!=undefined){this.risultato=logoJSON[0].description}}, err=> {this.risultato=err;});
          if(this.porta_a_informazioni==true && this.risultato!=undefined)
          {
            this.nav.push(PhotoInformationPage,{information:this.risultato,foto:imgData});
