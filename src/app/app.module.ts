@@ -19,6 +19,8 @@ import {IonicImageViewerModule} from "ionic-img-viewer";
 import { GoogleCloudVisionServiceProvider } from '../providers/google-cloud-vision-service/google-cloud-vision-service';
 import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
+import { Geolocation } from '@ionic-native/geolocation';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import {HttpModule} from "@angular/http";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GoogleCloudVisionServiceProvider
+    GoogleCloudVisionServiceProvider,
+    Geolocation,
+    LaunchNavigator
   ]
 })
 export class AppModule {}

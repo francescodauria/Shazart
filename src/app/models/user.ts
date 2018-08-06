@@ -11,7 +11,6 @@ export class User{
   private _nazionalita?:string;
   private _informazioni?:string;
   private _mail?:string;
-  private _numero?:string;
   private _sesso?:string;
   private _image?:string;
 
@@ -92,13 +91,6 @@ export class User{
     this._mail = value;
   }
 
-  get numero(): string {
-    return this._numero;
-  }
-
-  set numero(value: string) {
-    this._numero = value;
-  }
 
   get sesso(): string {
     return this._sesso;

@@ -3,7 +3,7 @@
     <name>Shazart</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.0.103:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -97,6 +97,19 @@
     <allow-navigation href="http://192.168.0.102:8101" />
     <allow-navigation href="http://192.168.0.101:8100" />
     <allow-navigation href="http://192.168.1.100:8101" />
+    <allow-navigation href="http://192.168.0.100:8100" />
+    <allow-navigation href="http://192.168.0.100:8102" />
+    <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
+        <variable name="OKHTTP_VERSION" value="3.+" />
+    </plugin>
+    <allow-navigation href="http://192.168.0.102:8103" />
+    <allow-navigation href="http://192.168.0.102:8104" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <allow-navigation href="http://192.168.0.100:8101" />
+    <allow-navigation href="http://192.168.0.100:8103" />
+    <allow-navigation href="http://192.168.0.100:8104" />
+    <allow-navigation href="http://192.168.0.100:8105" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
+    <plugin name="cordova-plugin-request-location-accuracy" spec="^2.2.3" />
 </widget>

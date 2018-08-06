@@ -29,7 +29,7 @@ export class LoginPage {
 
   public login() {
     localStorage.setItem("utente","");
-    let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null,false);
+    let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
     this.navCtrl.setRoot(HelloIonicPage,{opera:a});
     this.menu.enable(true);
   }

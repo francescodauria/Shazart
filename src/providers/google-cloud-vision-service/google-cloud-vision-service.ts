@@ -23,8 +23,12 @@ export class GoogleCloudVisionServiceProvider {
             "content": ''+base64Image
           },
           "features": [
+
             {
-              "type": "LOGO_DETECTION"
+              "type": "LABEL_DETECTION"
+            },
+            {
+              "type": "WEB_DETECTION"
             }
           ]
         }

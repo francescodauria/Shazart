@@ -24,9 +24,10 @@ export class ScanPage {
   public calcWidth : number;
   public camera:boolean;
   public i:number;
-  public risultato:string;
+  public risultato:string ="";
   public porta_a_informazioni:boolean=true;
-
+  public trovato_qualcosa:boolean =false;
+  public occupato:boolean=false;
 
   constructor(public nav: NavController, private zone:NgZone, public platform:Platform, public vision: GoogleCloudVisionServiceProvider, public menu:MenuController) {
     this.menu.swipeEnable(false);
@@ -41,7 +42,6 @@ export class ScanPage {
     this.calcWidth = this.getWidth - 80;  // Calculate the width of device and substract 80 from device width;
 
     console.log('calc width', this.calcWidth);
-    Observable.interval(2000).subscribe(x=>{this.takePicture();});
 
   }
     startCamera(){
@@ -49,9 +49,13 @@ export class ScanPage {
       CameraPreview.startCamera({x: 0, y: 40, width: window.screen.width, height: window.screen.height, toBack: true, previewDrag: false, tapPhoto: false, tapFocus:true, camera:'rear'});
       //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
       this.camera=true;
+      this.risultato="";
+      this.trovato_qualcosa=false;
       this.menu.swipeEnable(false);
       this.porta_a_informazioni=true;
       this.risultato=undefined;
+      Observable.interval(2000).subscribe(x=>{this.takePicture();});
+
 
     }
 
@@ -68,15 +72,48 @@ export class ScanPage {
       // CameraPreview.takePicture(size);         //Decrepted
       let logoJSON:any;
       CameraPreview.takePicture(size,imgData => {
+        if(this.occupato==false){
+          this.occupato=true;
+          this.vision.getInformation(imgData).subscribe((result) =>
+          {
+            logoJSON=result.json().responses[0];
+            if(logoJSON.labelAnnotations!=undefined)
+            {
+              for (const item of logoJSON.labelAnnotations) {
+                //
+                if(item.description=="building" ||item.description=="painting"||item.description=="sculpture"||item.description=="monument"){
+                  this.trovato_qualcosa=true;
+                  //   this.risultato=item.description;
+                  break;
+                }
+              }
+              if(this.trovato_qualcosa){
+                for (const item of logoJSON.webDetection.webEntities) {
+                  if(this.risultato!=undefined)
+                    this.risultato= this.risultato + " --------- " + item.description;
+                  else {
+                    this.risultato=item.description;
+                  }
+                }
+              }
 
-          this.vision.getInformation(imgData).subscribe((result) => {logoJSON=result.json().responses[0].logoAnnotations; if(logoJSON!=undefined){this.risultato=logoJSON[0].description}}, err=> {this.risultato=err;});
-         if(this.porta_a_informazioni==true && this.risultato!=undefined)
-         {
-           this.nav.push(PhotoInformationPage,{information:this.risultato,foto:imgData});
-           this.stopCamera();
-           this.porta_a_informazioni=false;
+            }
 
-         }
+          }, err=> {this.risultato=err;});
+
+          if(this.trovato_qualcosa && this.porta_a_informazioni && this.risultato!=undefined)
+          {
+            this.nav.push(PhotoInformationPage,{information:this.risultato,foto:imgData});
+            this.stopCamera();
+            this.porta_a_informazioni=false;
+
+          }
+          this.occupato=false;
+        }
+
+
+
+
 
 
 
