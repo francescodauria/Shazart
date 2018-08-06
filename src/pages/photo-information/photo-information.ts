@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic';
+
+declare let cordova: any;
 
 /**
  * Generated class for the PhotoInformationPage page.
@@ -20,11 +23,11 @@ export class PhotoInformationPage {
   public information:any;
   public foto:any;
   public locazione:string;
-  private latitude:number;
-  private longitude:number;
+  private latitude:string;
+  private longitude:string;
   liked:boolean=false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator, private geolocation: Geolocation) {
+  constructor(private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator) {
     this.information=this.navParams.get('information');
     this.locazione = "Galleria degli uffizi";
     this.foto='data:image/jpeg;base64,'+this.navParams.get('foto');
@@ -46,28 +49,46 @@ export class PhotoInformationPage {
     this.navCtrl.push(PhotoInformationPage);
   }
 
-  goToMaps(){
 
 
-    this.geolocation.getCurrentPosition().then(position =>{
-      this.latitude = position.coords.latitude;
-      this.longitude = position.coords.longitude;
-    },error=>{
-      console.log('error',error);
+
+
+  goToMaps() {
+
+    let location:string = this.locazione;
+    let geo: any = this.geolocation;
+    let nav: any = this.launchNavigator;
+    cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
+      if(enabled){
+        geo.getCurrentPosition().then(position =>{
+          let options: LaunchNavigatorOptions = {
+
+            start: position.coords.latitude + ','+ position.coords.longitude
+          };
+         nav.navigate(location, options)
+            .then(
+              success => console.log('Launched navigator'),
+              error => console.log('Error launching navigator', error)
+            );
+
+        },error=>{
+          alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+        });
+      }
+
+      else{
+        alert("Hei! Per utilizzare la mappa hai bisogno di attivare la localizzazione.");
+      }
+
+
+    }, function(error){
+      alert("Errore nella valutazione del GPS: "+error);
     });
 
 
-    let options: LaunchNavigatorOptions = {
-      start: ""+this.latitude+","+this.longitude
-      //start:"posizione attuale"
-    };
-
-    this.launchNavigator.navigate(this.locazione, options)
-      .then(
-        success => console.log('Launched navigator'),
-        error => console.log('Error launching navigator', error)
-      );
-
-
   }
+
+
 }
+

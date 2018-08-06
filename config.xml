@@ -104,12 +104,19 @@
     </plugin>
     <allow-navigation href="http://192.168.0.102:8103" />
     <allow-navigation href="http://192.168.0.102:8104" />
-    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <allow-navigation href="http://192.168.0.100:8101" />
     <allow-navigation href="http://192.168.0.100:8103" />
     <allow-navigation href="http://192.168.0.100:8104" />
     <allow-navigation href="http://192.168.0.100:8105" />
+    <allow-navigation href="http://192.168.0.100:8110" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
+    <plugin name="cordova-android-support-gradle-release" spec="^1.4.4">
+        <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
+    </plugin>
+    <allow-navigation href="http://192.168.0.100:8106" />
+    <allow-navigation href="http://192.168.0.100:8107" />
+    <allow-navigation href="http://192.168.0.100:8108" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
-    <plugin name="cordova-plugin-request-location-accuracy" spec="^2.2.3" />
 </widget>

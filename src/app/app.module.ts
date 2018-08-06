@@ -20,6 +20,8 @@ import { GoogleCloudVisionServiceProvider } from '../providers/google-cloud-visi
 import {HttpClientModule} from "@angular/common/http";
 import {HttpModule} from "@angular/http";
 import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic';
+
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 
 
@@ -64,6 +66,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GoogleCloudVisionServiceProvider,
     Geolocation,
+    Diagnostic,
     LaunchNavigator
   ]
 })
