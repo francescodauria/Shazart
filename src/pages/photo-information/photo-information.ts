@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
@@ -27,7 +27,7 @@ export class PhotoInformationPage {
   private longitude:string;
   liked:boolean=false;
 
-  constructor(private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator) {
+  constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator) {
     this.information=this.navParams.get('information');
     this.locazione = "Galleria degli uffizi";
     this.foto='data:image/jpeg;base64,'+this.navParams.get('foto');
@@ -58,6 +58,8 @@ export class PhotoInformationPage {
     let location:string = this.locazione;
     let geo: any = this.geolocation;
     let nav: any = this.launchNavigator;
+    let alertControl = this.alertCtrl;
+
     cordova.plugins.diagnostic.isLocationEnabled(function(enabled){
       if(enabled){
         geo.getCurrentPosition().then(position =>{
@@ -72,13 +74,26 @@ export class PhotoInformationPage {
             );
 
         },error=>{
-          alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
+          let messageAlert = alertControl.create({
+          title: 'Avviso:',
+          buttons: ['OK'],
+          cssClass: 'custom-alert',
+          message: 'Hei! Per poter utilizzare il navigatore ho bisogno del permesso.'
+        });
+          messageAlert.present();
+
         });
       }
 
       else{
-        alert("Hei! Per utilizzare la mappa hai bisogno di attivare la localizzazione.");
+        let messageAlert = alertControl.create({
+          title: 'Avviso:',
+          buttons: ['OK'],
+          cssClass: 'custom-alert',
+          message: 'Hei! Per utilizzare la mappa hai bisogno di attivare la localizzazione'
+        });
+        messageAlert.present();
+
       }
 
 
