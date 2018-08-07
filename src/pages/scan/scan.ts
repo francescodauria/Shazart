@@ -1,10 +1,15 @@
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 import {style} from "@angular/animations";
-import {Observable} from 'rxjs'
+import {Observable} from 'rxjs-compat'
 import {Artwork} from "../../app/models/artwork";
 import {PhotoInformationPage} from "../photo-information/photo-information";
 import {GoogleCloudVisionServiceProvider} from "../../providers/google-cloud-vision-service/google-cloud-vision-service";
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "angularfire2/firestore";
+import 'rxjs/add/operator/map';
+
+
+
 /**
  * Generated class for the ScanPage page.
  *
@@ -28,8 +33,10 @@ export class ScanPage {
   public porta_a_informazioni:boolean=true;
   public trovato_qualcosa:boolean =false;
   public occupato:boolean=false;
+  public elementi:any;
+  public logoJSON:any;
 
-  constructor(public nav: NavController, private zone:NgZone, public platform:Platform, public vision: GoogleCloudVisionServiceProvider, public menu:MenuController) {
+  constructor(public nav: NavController, private zone:NgZone, public platform:Platform, public vision: GoogleCloudVisionServiceProvider, public menu:MenuController, private db: AngularFirestore) {
     this.menu.swipeEnable(false);
     this.startCamera();
     this.zone.run(() => {
@@ -70,45 +77,79 @@ export class ScanPage {
     takePicture(){
       let size = {maxWidth: 640, maxHeight: 480};
       // CameraPreview.takePicture(size);         //Decrepted
-      let logoJSON:any;
+
+      let artwork:Artwork;
       CameraPreview.takePicture(size,imgData => {
         if(this.occupato==false){
           this.occupato=true;
           this.vision.getInformation(imgData).subscribe((result) =>
           {
-            logoJSON=result.json().responses[0];
-            if(logoJSON.labelAnnotations!=undefined)
+            this.elementi=undefined;
+            this.logoJSON=undefined;
+            this.logoJSON=result.json().responses[0];
+
+            if(this.logoJSON.labelAnnotations!=undefined)
             {
-              for (const item of logoJSON.labelAnnotations) {
-                //
-                if(item.description=="building" ||item.description=="painting"||item.description=="sculpture"||item.description=="monument"){
-                  this.trovato_qualcosa=true;
-                  //   this.risultato=item.description;
-                  break;
-                }
-              }
-              if(this.trovato_qualcosa){
-                for (const item of logoJSON.webDetection.webEntities) {
-                  if(this.risultato!=undefined)
-                    this.risultato= this.risultato + " --------- " + item.description;
-                  else {
-                    this.risultato=item.description;
+              for (const item of this.logoJSON.labelAnnotations) {
+
+                switch (item.description) {
+                  case "building":{
+                    this.db.collection<Artwork>('Opere').doc('Edificio').ref.get().then(doc =>{
+                      this.elementi=doc.get("elementi");
+                      this.trovato_qualcosa=true;
+                      });
+
+                    break;
+                  }
+                  case "painting":{
+                    this.db.collection<Artwork>('Opere').doc('Pittura').ref.get().then(doc =>{
+                      this.elementi=doc.get("elementi");
+
+                      this.trovato_qualcosa=true;
+                    });
+                    break;
+                  }
+                  case "sculpture":{
+                    this.db.collection<Artwork>('Opere').doc('Scultura').ref.get().then(doc =>{
+                      this.elementi=doc.get("elementi");
+                      this.trovato_qualcosa=true;
+                    });
+                    break;
+                  }
+                  case "monument":{
+                    this.db.collection<Artwork>('Opere').doc('Monumento').ref.get().then(doc =>{
+                      this.elementi=doc.get("elementi");
+                      this.trovato_qualcosa=true;
+                    });
+                    break;
                   }
                 }
               }
-
+              //alert("ciao"+JSON.stringify(this.elementi));
             }
-
+            this.occupato=false;
           }, err=> {this.risultato=err;});
 
-          if(this.trovato_qualcosa && this.porta_a_informazioni && this.risultato!=undefined)
+          if(this.trovato_qualcosa && this.elementi!=undefined && this.logoJSON!=undefined){
+
+            for (const item of this.logoJSON.webDetection.webEntities) {
+
+              for(const opera of this.elementi)
+              {
+                if(item.description==opera.id){
+                  artwork=new Artwork(opera.titolo,opera.anno,opera.descrizione,opera.artista,opera.periodo,opera.scansioni,opera.ubicazione,opera.ubicazione_citta,opera.tipologia,opera.dimensioni,opera.img,opera.img_prev);
+                }
+              }
+            }
+          }
+          if(this.trovato_qualcosa && this.porta_a_informazioni)
           {
-            this.nav.push(PhotoInformationPage,{information:this.risultato,foto:imgData});
+            this.nav.push(PhotoInformationPage,{"artwork":artwork});
             this.stopCamera();
             this.porta_a_informazioni=false;
 
           }
-          this.occupato=false;
+
         }
 
 
@@ -121,7 +162,9 @@ export class ScanPage {
       });
     }
 
+    controlloDettagli(){
 
+    }
     SwitchCamera(){
       CameraPreview.switchCamera();
     }

@@ -6,6 +6,7 @@ export class Artwork{
   private _periodo:string;
   private _scansioni:number;
   private _ubicazione:string;
+  private _ubicazione_citta:string;
   private _tipologia:string;
   private _dimensioni:string;
   private _img:string;
@@ -14,7 +15,7 @@ export class Artwork{
   private _like?:boolean;
 
 
-  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni: number, ubicazione: string, tipologia: string, dimensioni: string, img: string, img_prev: string) {
+  constructor(titolo: string, anno: string, descrizione: string, artista: string, periodo: string, scansioni: number, ubicazione: string, ubicazione_citta:string, tipologia: string, dimensioni: string, img: string, img_prev: string) {
     this._titolo = titolo;
     this._anno = anno;
     this._descrizione = descrizione;
@@ -22,18 +23,11 @@ export class Artwork{
     this._periodo = periodo;
     this._scansioni = scansioni;
     this._ubicazione = ubicazione;
+    this._ubicazione_citta=ubicazione_citta;
     this._tipologia = tipologia;
     this._dimensioni = dimensioni;
     this._img = img;
     this._img_prev = img_prev;
-  }
-
-  get scansioni(): number {
-    return this._scansioni;
-  }
-
-  set scansioni(value: number) {
-    this._scansioni = value;
   }
 
   get titolo(): string {
@@ -75,6 +69,15 @@ export class Artwork{
   set periodo(value: string) {
     this._periodo = value;
   }
+
+  get scansioni(): number {
+    return this._scansioni;
+  }
+
+  set scansioni(value: number) {
+    this._scansioni = value;
+  }
+
   get ubicazione(): string {
     return this._ubicazione;
   }
@@ -129,5 +132,13 @@ export class Artwork{
 
   set like(value: boolean) {
     this._like = value;
+  }
+
+  get ubicazione_citta(): string {
+    return this._ubicazione_citta;
+  }
+
+  set ubicazione_citta(value: string) {
+    this._ubicazione_citta = value;
   }
 }

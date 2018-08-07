@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
 import {HelloIonicPage} from "../hello-ionic/hello-ionic";
 import {MyApp} from "../../app/app.component";
-import {Artwork} from "../../app/models/artwork";
 
 /**
  * Generated class for the LoginPage page.
@@ -29,8 +28,8 @@ export class LoginPage {
 
   public login() {
     localStorage.setItem("utente","");
-    let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
-    this.navCtrl.setRoot(HelloIonicPage,{opera:a});
+    //let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
+    this.navCtrl.setRoot(HelloIonicPage);
     this.menu.enable(true);
   }
 }

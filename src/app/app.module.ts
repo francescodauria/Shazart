@@ -23,6 +23,9 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
 
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import {AngularFireModule} from "angularfire2";
+import {AngularFirestoreModule} from "angularfire2/firestore";
+import {environment} from "../environment/environment";
 
 
 @NgModule({
@@ -44,7 +47,9 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
     HttpModule,
     BrowserModule,
     IonicModule.forRoot(MyApp,{mode:'ios'}),
-    IonicImageViewerModule
+    IonicImageViewerModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

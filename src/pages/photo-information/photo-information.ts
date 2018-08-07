@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
+import {Artwork} from "../../app/models/artwork";
 
 declare let cordova: any;
 
@@ -20,7 +21,7 @@ declare let cordova: any;
 })
 export class PhotoInformationPage {
   images = ['logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png'];
-  public information:any;
+  public artwork:Artwork;
   public foto:any;
   public locazione:string;
   private latitude:string;
@@ -28,14 +29,14 @@ export class PhotoInformationPage {
   liked:boolean=false;
 
   constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator) {
-    this.information=this.navParams.get('information');
-    this.locazione = "Galleria degli uffizi";
-    this.foto='data:image/jpeg;base64,'+this.navParams.get('foto');
+    this.artwork=this.navParams.get('artwork');
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PhotoInformationPage');
   }
+
 
   like(){
     if(this.liked==false)

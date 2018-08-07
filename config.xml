@@ -97,8 +97,6 @@
     <allow-navigation href="http://192.168.0.102:8101" />
     <allow-navigation href="http://192.168.0.101:8100" />
     <allow-navigation href="http://192.168.1.100:8101" />
-    <allow-navigation href="http://192.168.0.100:8100" />
-    <allow-navigation href="http://192.168.0.100:8102" />
     <plugin name="uk.co.workingedge.phonegap.plugin.launchnavigator" spec="^4.2.1">
         <variable name="OKHTTP_VERSION" value="3.+" />
     </plugin>
@@ -110,13 +108,13 @@
     <allow-navigation href="http://192.168.0.100:8105" />
     <allow-navigation href="http://192.168.0.100:8110" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
-    <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
     <plugin name="cordova-android-support-gradle-release" spec="^1.4.4">
         <variable name="ANDROID_SUPPORT_VERSION" value="25.+" />
     </plugin>
     <allow-navigation href="http://192.168.0.100:8106" />
     <allow-navigation href="http://192.168.0.100:8107" />
     <allow-navigation href="http://192.168.0.100:8108" />
+    <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>
