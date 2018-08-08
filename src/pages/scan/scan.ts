@@ -96,7 +96,7 @@ export class ScanPage {
                   case "building":{
                     this.db.collection<Artwork>('Opere').doc('Edificio').ref.get().then(doc =>{
                       this.elementi=doc.get("elementi");
-                      this.trovato_qualcosa=true;
+
                       });
 
                     break;
@@ -105,21 +105,21 @@ export class ScanPage {
                     this.db.collection<Artwork>('Opere').doc('Pittura').ref.get().then(doc =>{
                       this.elementi=doc.get("elementi");
 
-                      this.trovato_qualcosa=true;
+
                     });
                     break;
                   }
                   case "sculpture":{
                     this.db.collection<Artwork>('Opere').doc('Scultura').ref.get().then(doc =>{
                       this.elementi=doc.get("elementi");
-                      this.trovato_qualcosa=true;
+
                     });
                     break;
                   }
                   case "monument":{
                     this.db.collection<Artwork>('Opere').doc('Monumento').ref.get().then(doc =>{
                       this.elementi=doc.get("elementi");
-                      this.trovato_qualcosa=true;
+
                     });
                     break;
                   }
@@ -130,7 +130,7 @@ export class ScanPage {
             this.occupato=false;
           }, err=> {this.risultato=err;});
 
-          if(this.trovato_qualcosa && this.elementi!=undefined && this.logoJSON!=undefined){
+          if(this.elementi!=undefined && this.logoJSON!=undefined){
 
             for (const item of this.logoJSON.webDetection.webEntities) {
 
@@ -138,7 +138,9 @@ export class ScanPage {
               {
                 if(item.description==opera.id){
                   artwork=new Artwork(opera.titolo,opera.anno,opera.descrizione,opera.artista,opera.periodo,opera.scansioni,opera.ubicazione,opera.ubicazione_citta,opera.tipologia,opera.dimensioni,opera.img,opera.img_prev);
+                  this.trovato_qualcosa=true;
                 }
+
               }
             }
           }
