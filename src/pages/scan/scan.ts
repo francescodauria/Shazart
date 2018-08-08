@@ -9,14 +9,14 @@ import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} 
 import 'rxjs/add/operator/map';
 
 
-
 /**
  * Generated class for the ScanPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-declare var CameraPreview:any;
+declare var CameraPreview: any;
+
 @IonicPage()
 @Component({
   selector: 'page-scan',
@@ -25,18 +25,18 @@ declare var CameraPreview:any;
 export class ScanPage {
 
   public getWidth: number;
-  public getHeight : number;
-  public calcWidth : number;
-  public camera:boolean;
-  public i:number=0;
-  public risultato:string ="";
-  public porta_a_informazioni:boolean=true;
-  public trovato_qualcosa:boolean =false;
-  public occupato:boolean=false;
-  public elementi:any;
-  public logoJSON:any;
+  public getHeight: number;
+  public calcWidth: number;
+  public camera: boolean;
+  public i: number = 0;
+  public risultato: string = "";
+  public porta_a_informazioni: boolean = true;
+  public trovato_qualcosa: boolean = false;
+  public occupato: boolean = false;
+  public logoJSON: any;
 
-  constructor(public nav: NavController, private zone:NgZone, public platform:Platform, public vision: GoogleCloudVisionServiceProvider, public menu:MenuController, private db: AngularFirestore) {
+
+  constructor(public nav: NavController, private zone: NgZone, public platform: Platform, public vision: GoogleCloudVisionServiceProvider, public menu: MenuController, private db: AngularFirestore) {
     this.menu.swipeEnable(false);
     this.startCamera();
     this.zone.run(() => {
@@ -51,132 +51,168 @@ export class ScanPage {
     console.log('calc width', this.calcWidth);
 
   }
-    startCamera(){
-      // let react = {x: 40, y: 100, width: this.calcWidth ,height: 220}   //Decrepted due to previous code
-      CameraPreview.startCamera({x: 0, y: 40, width: window.screen.width, height: window.screen.height, toBack: true, previewDrag: false, tapPhoto: false, tapFocus:true, camera:'rear'});
-      //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
-      this.camera=true;
-      this.risultato="";
-      this.trovato_qualcosa=false;
-      this.menu.swipeEnable(false);
-      this.porta_a_informazioni=true;
-      this.risultato=undefined;
-      Observable.interval(2000).subscribe(x=>{this.takePicture();});
+
+  startCamera() {
+    // let react = {x: 40, y: 100, width: this.calcWidth ,height: 220}   //Decrepted due to previous code
+    CameraPreview.startCamera({
+      x: 0,
+      y: 40,
+      width: window.screen.width,
+      height: window.screen.height,
+      toBack: true,
+      previewDrag: false,
+      tapPhoto: false,
+      tapFocus: true,
+      camera: 'rear'
+    });
+    //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
+    this.camera = true;
+    this.menu.swipeEnable(false);
+    this.risultato = undefined;
+    this.occupato = false;
+    Observable.interval(1000).subscribe(x => {
+      this.takePicture();
+    });
 
 
-    }
+  }
 
-    stopCamera(){
-      CameraPreview.stopCamera();
-      this.camera=false;
-      this.menu.swipeEnable(true);
+  stopCamera() {
+    CameraPreview.stopCamera();
+    this.camera = false;
+    this.menu.swipeEnable(true);
 
 
-    }
+  }
 
-    takePicture(){
-      let size = {maxWidth: 640, maxHeight: 480};
-      // CameraPreview.takePicture(size);         //Decrepted
+  takePicture() {
+    let size = {maxWidth: 640, maxHeight: 480};
+    // CameraPreview.takePicture(size);         //Decrepted
 
-      let artwork:Artwork;
-      CameraPreview.takePicture(size,imgData => {
-        if(this.occupato==false){
-          this.occupato=true;
-          this.vision.getInformation(imgData).subscribe((result) =>
-          {
-            this.elementi=undefined;
-            this.logoJSON=undefined;
-            this.logoJSON=result.json().responses[0];
+    let artwork: Artwork;
+    CameraPreview.takePicture(size, imgData => {
+        if (this.occupato == false) {
+          this.occupato = true;
+         //alert(this.occupato);
+          this.trovato_qualcosa = false;
 
-            if(this.logoJSON.labelAnnotations!=undefined)
-            {
+
+          this.vision.getInformation(imgData).subscribe((result) => {
+
+            this.logoJSON = result.json().responses[0];
+
+
+            if (this.logoJSON.labelAnnotations != undefined) {
+
+
               for (const item of this.logoJSON.labelAnnotations) {
 
                 switch (item.description) {
-                  case "building":{
-                    this.db.collection<Artwork>('Opere').doc('Edificio').ref.get().then(doc =>{
-                      this.elementi=doc.get("elementi");
-
-                      });
-
+                  case "building": {
+                    this.risultato = "Edificio";
                     break;
                   }
-                  case "painting":{
-                    this.db.collection<Artwork>('Opere').doc('Pittura').ref.get().then(doc =>{
-                      this.elementi=doc.get("elementi");
+                  case "painting": {
 
+                    this.risultato = "Pittura";
+                    break;
 
-                    });
+                  }
+                  case "sculpture": {
+                    this.risultato = "Scultura";
                     break;
                   }
-                  case "sculpture":{
-                    this.db.collection<Artwork>('Opere').doc('Scultura').ref.get().then(doc =>{
-                      this.elementi=doc.get("elementi");
-
-                    });
-                    break;
-                  }
-                  case "monument":{
-                    this.db.collection<Artwork>('Opere').doc('Monumento').ref.get().then(doc =>{
-                      this.elementi=doc.get("elementi");
-
-                    });
+                  case "monument": {
+                    this.risultato = "Monumento";
                     break;
                   }
                 }
               }
               //alert("ciao"+JSON.stringify(this.elementi));
             }
-            this.occupato=false;
-          }, err=> {this.risultato=err;});
+            else {
+              this.occupato = false;
+              //alert("la label è undefined e occupato è false");
+            }
+          }, err => {
+            this.risultato = err;
 
-          if(this.elementi!=undefined && this.logoJSON!=undefined){
+          });
 
-            for (const item of this.logoJSON.webDetection.webEntities) {
+          if (this.occupato) {
 
-              for(const opera of this.elementi)
-              {
-                if(item.description==opera.id){
-                  artwork=new Artwork(opera.titolo,opera.anno,opera.descrizione,opera.artista,opera.periodo,opera.scansioni,opera.ubicazione,opera.ubicazione_citta,opera.tipologia,opera.dimensioni,opera.img,opera.img_prev);
-                  this.trovato_qualcosa=true;
+
+            if (this.risultato != undefined) {
+              //alert(this.risultato);
+              /*for (const item of this.logoJSON.webDetection.webEntities) {
+                alert("Sto nel for");
+                this.db.collection<Artwork>(this.risultato, ref => {
+                  return ref.where('id', '==', item.description)
+                }).valueChanges().map(val => {
+                  if (val[0] != undefined) {
+                    alert("Prendo l'opera");
+                    artwork = new Artwork(val[0].titolo, val[0].anno, val[0].descrizione, val[0].artista, val[0].periodo, val[0].scansioni, val[0].ubicazione, val[0].ubicazione_citta, val[0].tipologia, val[0].dimensioni, val[0].img, val[0].img_prev);
+                    this.trovato_qualcosa = true;
+                  }
+                }).subscribe();
+                if (this.trovato_qualcosa) {
+                  break;
+                }
+              }*/
+              this.db.collection<any>(this.risultato).valueChanges().map(value => {
+                //alert("map");
+                for(let opera of value){
+                  for(const item of this.logoJSON.webDetection.webEntities)
+                  {
+                    //alert(item.description);
+                    if(item.description==opera.id)
+                    {
+                      artwork = new Artwork(opera.titolo, opera.anno, opera.descrizione, opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev);
+                      this.trovato_qualcosa = true;
+                      //alert("trovato");
+                    }
+                  }
                 }
 
-              }
+                if (!this.trovato_qualcosa) {
+                  this.occupato = false;
+                  //alert("Non è satato trovato niente e occupato è false");
+                }
+                else {
+                  this.nav.push(PhotoInformationPage, {"artwork": artwork});
+                  this.stopCamera();
+                  this.porta_a_informazioni = false;
+                }
+              }).subscribe();
             }
-          }
-          if(this.trovato_qualcosa && this.porta_a_informazioni)
-          {
-            this.nav.push(PhotoInformationPage,{"artwork":artwork});
-            this.stopCamera();
-            this.porta_a_informazioni=false;
+
+            else {
+              this.occupato = false;
+              //alert("risultato undefined e occupato è false");
+            }
+
 
           }
-
         }
+      }
+    );
+  }
 
-
-
-
-
-
-
-        //alert("Ho scattato");
-      });
-    }
-
-    controlloDettagli(){
-
-    }
-    SwitchCamera(){
-      CameraPreview.switchCamera();
-    }
-    showCamera(){
-      CameraPreview.show();
-    }
-    hideCamera(){
-      CameraPreview.hide();
-    }
-
-
+  controlloDettagli() {
 
   }
+
+  SwitchCamera() {
+    CameraPreview.switchCamera();
+  }
+
+  showCamera() {
+    CameraPreview.show();
+  }
+
+  hideCamera() {
+    CameraPreview.hide();
+  }
+
+
+}
