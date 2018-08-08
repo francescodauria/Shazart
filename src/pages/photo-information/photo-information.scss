@@ -1,7 +1,8 @@
 page-photo-information {
 
   ion-slide.swiper-slide {
-    left: 25%;
+    left: -2%;
+
   }
 
   .custom-alert{
@@ -26,15 +27,19 @@ page-photo-information {
     transition: all .25s
   }
   .image-slider{
-    height: 170px;
+    height: 200px;
     background-color: #fff;
   }
   .ion-slide,.slide-zoom{
     background-color: #296881;
     margin-left:5px;
     margin-right: 5px;
+
+  }
+  .ion-slide{
     border-style: double;
     border-color: #fff;
+    border-radius: 10%;
   }
   .artista,.titolo{
     margin: 0px;

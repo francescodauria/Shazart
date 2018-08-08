@@ -22,28 +22,28 @@
     <div class="row like-btn">
       <div class="col text-right">
 
-      <div [ngClass]="liked? 'bg-color-white like-button-with-text' : 'bg-color-red like-button'"(click)="this.like()">
+        <div [ngClass]="liked? 'bg-color-white like-button-with-text' : 'bg-color-red like-button'"(click)="this.like()">
 
 
-        <ion-icon name="heart" [ngClass]="liked? 'color-red' : 'color-white'" >
+          <ion-icon name="heart" [ngClass]="liked? 'color-red' : 'color-white'" >
 
-        </ion-icon>
+          </ion-icon>
 
-        <span *ngIf="liked"><br>Liked</span><!-- -->
+          <span *ngIf="liked"><br>Liked</span><!-- -->
 
 
+        </div>
       </div>
+
+
     </div>
-
-
-</div>
 
   </div>
 
 
   <div>
-&nbsp;&nbsp;
-  <h3 class="titolo_opera">{{artwork.titolo}}</h3>
+    &nbsp;&nbsp;
+    <h3 class="titolo_opera">{{artwork.titolo}}</h3>
     <p id="descrizione">{{artwork.descrizione}}</p>
     <p id="artista">{{artwork.artista}}</p>
     <p id="anno">{{artwork.anno}}</p>
@@ -55,23 +55,25 @@
 
   </div>
   <div class="slider-div">
-  <h5 style="margin-bottom: 0.5rem">CONSIGLIATI PER ARTISTA</h5>
-  <ion-slides class="image-slider" loop="true" slidesPerView="2">
-    <ion-slide *ngFor="let img of images" class="ion-slide" (click)="showDetailsPhoto()">
-      <img src="assets/imgs/{{img}}" class="thumb-img"/>
-      <h4 class="titolo">Titolo opera</h4>
-      <p class="artista">Artista</p>
-    </ion-slide>
-  </ion-slides>
-  </div>
-  <div class="slider-div">
-    <h5 style="margin-bottom: 0.5rem; margin-top:1rem">CONSIGLIATI PER PERIODO</h5>
+    <h5 style="margin-bottom: 0.5rem">Forse questo artista ti interessa</h5>
     <ion-slides class="image-slider" loop="true" slidesPerView="2">
       <ion-slide *ngFor="let img of images" class="ion-slide" (click)="showDetailsPhoto()">
         <img src="assets/imgs/{{img}}" class="thumb-img"/>
-        <p class="titolo">Titolo opera</p>
+        <h4 class="titolo">Titolo opera</h4>
         <p class="artista">Artista</p>
       </ion-slide>
     </ion-slides>
   </div>
+  <div class="slider-div">
+    <h5 style="margin-bottom: 0.5rem; margin-top:1rem">Se hai tempo in città, non perdere queste!</h5>
+    <ion-slides class="image-slider" slidesPerView="2" >
+      <ion-slide *ngFor="let opera of opereArray" class="ion-slide" (click)="showDetailsPhoto(opera)">
+        <img [src]=opera.img_prev class="thumb-img"/>
+        <p class="titolo">{{opera.titolo}}</p>
+        <p class="artista">{{opera.artista}}</p>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+
 </ion-content>

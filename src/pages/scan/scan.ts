@@ -103,7 +103,7 @@ export class ScanPage {
 
 
             if (this.logoJSON.labelAnnotations != undefined) {
-
+              //alert(JSON.stringify(this.logoJSON.labelAnnotations))
 
               for (const item of this.logoJSON.labelAnnotations) {
 
@@ -113,7 +113,7 @@ export class ScanPage {
                     break;
                   }
                   case "painting": {
-
+                      //alert("è entrato in painting");
                     this.risultato = "Pittura";
                     break;
 
@@ -124,6 +124,7 @@ export class ScanPage {
                   }
                   case "monument": {
                     this.risultato = "Monumento";
+
                     break;
                   }
                 }
@@ -142,6 +143,7 @@ export class ScanPage {
           if (this.occupato) {
 
 
+            //alert("risultato "+this.risultato);
             if (this.risultato != undefined) {
               //alert(this.risultato);
               /*for (const item of this.logoJSON.webDetection.webEntities) {
