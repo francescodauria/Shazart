@@ -28,7 +28,7 @@ export class ScanPage {
   public getHeight : number;
   public calcWidth : number;
   public camera:boolean;
-  public i:number;
+  public i:number=0;
   public risultato:string ="";
   public porta_a_informazioni:boolean=true;
   public trovato_qualcosa:boolean =false;

@@ -22,10 +22,6 @@ declare let cordova: any;
 export class PhotoInformationPage {
   images = ['logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png'];
   public artwork:Artwork;
-  public foto:any;
-  public locazione:string;
-  private latitude:string;
-  private longitude:string;
   liked:boolean=false;
 
   constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator) {
@@ -56,7 +52,7 @@ export class PhotoInformationPage {
 
   goToMaps() {
 
-    let location:string = this.locazione;
+    let location:string = this.artwork.ubicazione;
     let geo: any = this.geolocation;
     let nav: any = this.launchNavigator;
     let alertControl = this.alertCtrl;
