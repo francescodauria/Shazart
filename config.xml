@@ -115,6 +115,9 @@
     <allow-navigation href="http://192.168.0.100:8107" />
     <allow-navigation href="http://192.168.0.100:8108" />
     <plugin name="cordova.plugins.diagnostic" spec="^4.0.8" />
+    <allow-navigation href="http://192.168.1.125:8102" />
+    <allow-navigation href="http://192.168.1.125:8103" />
+    <allow-navigation href="http://192.168.0.101:8104" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>
