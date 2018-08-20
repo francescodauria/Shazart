@@ -27,7 +27,7 @@ export class LoginPage {
     this.menu.enable(false);
     this.username = "";
     this.password= "";
-    if(localStorage.getItem("username")!="undefined" && localStorage.getItem("password")!="undefined")
+    if(localStorage.getItem("username")!="undefined" && localStorage.getItem("username")!=null && localStorage.getItem("password")!="undefined")
     {
       this.username= localStorage.getItem("username");
       this.password=localStorage.getItem("password" );
