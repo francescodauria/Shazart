@@ -19,15 +19,18 @@ import {Observable} from "rxjs/Observable";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  username:string = "";
-  password:string= "";
+  username:string;
+  password:string;
   private utenteObservable: Observable<any>;
 
   constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore) {
     this.menu.enable(false);
-    if(localStorage.getItem("username")!=null && localStorage.getItem("username")!=undefined && localStorage.getItem("password")!=null){
-      this.username=localStorage.getItem("username");
-      this.password=localStorage.getItem("password");
+    this.username = "";
+    this.password= "";
+    if(localStorage.getItem("username")!="undefined" && localStorage.getItem("password")!="undefined")
+    {
+      this.username= localStorage.getItem("username");
+      this.password=localStorage.getItem("password" );
       this.login();
     }
   }

@@ -66,8 +66,8 @@ export class MyApp {
 
   public logout(){
     this.nav.setRoot(LoginPage,{animation:'ios-transition',direction:'forward'});
-    localStorage.setItem("username", null);
-    localStorage.setItem("password",null); 
+    localStorage.setItem("username", "undefined");
+    localStorage.setItem("password","undefined");
   }
 
 
