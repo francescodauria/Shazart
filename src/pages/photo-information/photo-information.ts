@@ -6,6 +6,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import {Artwork} from "../../app/models/artwork";
 import {AngularFirestore, AngularFirestoreCollection} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
+import {firestore} from "firebase";
 
 declare let cordova: any;
 
@@ -30,11 +31,11 @@ export class PhotoInformationPage {
   public opereArrayPeriodo: Array<Artwork> =[];
 
   constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
-    //this.artwork=this.navParams.get('artwork');
+    this.artwork=this.navParams.get('artwork');
 
 
 
-    this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Neoclassicismo", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
+    //this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Neoclassicismo", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
 
 
 
@@ -70,7 +71,7 @@ export class PhotoInformationPage {
     this.opereObservable.map(val => {
       for (let opera of val) {
         if(opera.titolo!=this.artwork.titolo)
-        opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev));
+        opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev,opera.id));
       }
 
     })      .subscribe(val => console.log(val));
@@ -79,8 +80,12 @@ export class PhotoInformationPage {
 
 
   like(){
-    if(this.liked==false)
-      this.liked=true;
+    if(this.liked==false) {
+      this.liked = true;
+      alert(this.artwork.id+"    "+this.artwork.tipologia)
+      let likeTMP=[{"titolo":this.artwork.id,"tipologia":this.artwork.tipologia}];
+      this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayUnion({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
+    }
     else if(this.liked==true)
       this.liked=false;
 

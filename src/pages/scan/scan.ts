@@ -169,7 +169,7 @@ export class ScanPage {
                     //alert(item.description);
                     if(item.description==opera.id)
                     {
-                      artwork = new Artwork(opera.titolo, opera.anno, opera.descrizione, opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev);
+                      artwork = new Artwork(opera.titolo, opera.anno, opera.descrizione, opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev,opera.id);
                       this.trovato_qualcosa = true;
                       //alert("trovato");
                     }

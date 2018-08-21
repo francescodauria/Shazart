@@ -15,11 +15,11 @@
     </ion-col>
     <!-- Information about user -->
     <ion-col col-3 text-center style="padding-top:25px">
-      <h6>21</h6>
+      <h6>{{sizeScan}}</h6>
       <p no-padding no-margin>Scan</p>
     </ion-col>
     <ion-col col-3 text-center style="padding-top:25px">
-      <h6>114</h6>
+      <h6>{{sizePreferiti}}</h6>
       <p no-paddin no-margin>Preferite</p>
     </ion-col>
     <ion-col col-3 text-center style="padding-top:25px">
@@ -33,20 +33,8 @@
   <ion-grid>
     <!--for per caricare le immagini-->
     <ion-row>
-      <ion-col col-4 class="grid_img" (click)="showDetails()">
-        <img src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg" alt="">
-      </ion-col>
-      <ion-col col-4 class="grid_img" (click)="showDetails()">
-        <img src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg" alt="">
-      </ion-col>
-      <ion-col col-4 class="grid_img" >
-        <img src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg" alt="">
-      </ion-col>
-      <ion-col col-4 class="grid_img" >
-        <img src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg" alt="">
-      </ion-col>
-      <ion-col col-4 class="grid_img" >
-        <img src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg" alt="">
+      <ion-col col-4 class="grid_img" *ngFor="let opera of opereArray" (click)="showDetails(opera)">
+        <img [src]=opera.img_prev alt="">
       </ion-col>
     </ion-row>
   </ion-grid>
