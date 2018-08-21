@@ -55,19 +55,19 @@
 
   </div>
   <div class="slider-div">
-    <h5 style="margin-bottom: 0.5rem">Forse questo artista ti interessa</h5>
-    <ion-slides class="image-slider" loop="true" slidesPerView="2">
-      <ion-slide *ngFor="let img of images" class="ion-slide" (click)="showDetailsPhoto()">
-        <img src="assets/imgs/{{img}}" class="thumb-img"/>
-        <h4 class="titolo">Titolo opera</h4>
-        <p class="artista">Artista</p>
+    <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del {{artwork.periodo}}</h5>
+    <ion-slides class="image-slider" slidesPerView="2" >
+      <ion-slide *ngFor="let opera of opereArrayPeriodo" class="ion-slide" (click)="showDetailsPhoto(opera)">
+        <img [src]=opera.img_prev class="thumb-img"/>
+        <p class="titolo">{{opera.titolo}}</p>
+        <p class="artista">{{opera.artista}}</p>
       </ion-slide>
     </ion-slides>
   </div>
   <div class="slider-div">
     <h5 style="margin-bottom: 0.5rem; margin-top:1rem">Se hai tempo in città, non perdere queste!</h5>
     <ion-slides class="image-slider" slidesPerView="2" >
-      <ion-slide *ngFor="let opera of opereArray" class="ion-slide" (click)="showDetailsPhoto(opera)">
+      <ion-slide *ngFor="let opera of opereArrayUbicazione" class="ion-slide" (click)="showDetailsPhoto(opera)">
         <img [src]=opera.img_prev class="thumb-img"/>
         <p class="titolo">{{opera.titolo}}</p>
         <p class="artista">{{opera.artista}}</p>

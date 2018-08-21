@@ -29,11 +29,11 @@
           <ion-list inset>
 
             <ion-item>
-              <ion-input type="text" placeholder="Email" name="email" required></ion-input>
+              <ion-input type="text" [(ngModel)]="username" placeholder="Username" name="username" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="password" placeholder="Password" name="password" required></ion-input>
+              <ion-input type="password" [(ngModel)]="password" placeholder="Password" name="password" required></ion-input>
             </ion-item>
 
           </ion-list>

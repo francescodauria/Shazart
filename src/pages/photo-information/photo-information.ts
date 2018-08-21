@@ -26,27 +26,38 @@ export class PhotoInformationPage {
   private artwork:Artwork;
   liked:boolean=false;
   private opereObservable: Observable<Artwork[]>;
-  public opereArray: Array<Artwork> =[];
+  public opereArrayUbicazione: Array<Artwork> =[];
+  public opereArrayPeriodo: Array<Artwork> =[];
+
   constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
     //this.artwork=this.navParams.get('artwork');
 
 
 
-    this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Rinascimento", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
+    this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Neoclassicismo", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
 
 
 
 
-    let edificioCollection=this.db.collection<Artwork>('/Edificio', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
-    let pitturaCollection=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
-    let sculturaCollection=this.db.collection<Artwork>('/Scultura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
-    let monumentoCollection=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let edificioCollectionUbicazione=this.db.collection<Artwork>('/Edificio', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let pitturaCollectionUbicazione=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let sculturaCollectionUbicazione=this.db.collection<Artwork>('/Scultura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let monumentoCollectionUbicazione=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
 
-    this.createArrayUbicazione(edificioCollection);
-    this.createArrayUbicazione(pitturaCollection);
-    this.createArrayUbicazione(sculturaCollection);
-    this.createArrayUbicazione(monumentoCollection);
+    this.createArray(edificioCollectionUbicazione,this.opereArrayUbicazione);
+    this.createArray(pitturaCollectionUbicazione,this.opereArrayUbicazione);
+    this.createArray(sculturaCollectionUbicazione,this.opereArrayUbicazione);
+    this.createArray(monumentoCollectionUbicazione,this.opereArrayUbicazione);
 
+    let edificioCollectionPeriodo=this.db.collection<Artwork>('/Edificio', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    let pitturaCollectionPeriodo=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    let sculturaCollectionPeriodo=this.db.collection<Artwork>('/Scultura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    let monumentoCollectionPeriodo=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+
+    this.createArray(edificioCollectionPeriodo,this.opereArrayPeriodo);
+    this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
+    this.createArray(sculturaCollectionPeriodo,this.opereArrayPeriodo);
+    this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);
 
 
   }
@@ -54,12 +65,12 @@ export class PhotoInformationPage {
     console.log('ionViewDidLoad PhotoInformationPage');
   }
 
-  createArrayUbicazione(collection: AngularFirestoreCollection<Artwork>) {
+  createArray(collection: AngularFirestoreCollection<Artwork>, opereArray: Array<Artwork>) {
     this.opereObservable= collection.valueChanges();
     this.opereObservable.map(val => {
       for (let opera of val) {
         if(opera.titolo!=this.artwork.titolo)
-        this.opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev));
+        opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev));
       }
 
     })      .subscribe(val => console.log(val));
