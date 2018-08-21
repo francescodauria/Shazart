@@ -96,9 +96,39 @@ export class LoginPage {
         else{
           let messageAlert = this.alertControl.create({
             title: 'Attenzione!',
-            buttons: ['OK'],
             cssClass: 'custom-alert',
-            message: "Hei, l'username inserito non è corretto"
+            message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
+            buttons: [
+
+              {
+                text: 'Annulla',
+                role: 'cancel',
+
+              },
+              {
+                text: 'Ok',
+                handler: () => {
+
+                  this.db.collection("Utenti").doc(this.username).set({
+                    nome:"",
+                    cognome:"",
+                    email:"",
+                    informazioni:"Ciao sto usando Shazart!",
+                    nazionalità:"",
+                    password:this.password,
+                    sesso:"",
+                    username:this.username,
+                    like:[],
+                    scan:[]
+                  })
+
+                  localStorage.setItem("username", this.username);
+                  localStorage.setItem("password",this.password);
+                  this.navCtrl.setRoot(HelloIonicPage);
+                  this.menu.enable(true);
+                }
+              },
+            ]
           });
           messageAlert.present();
         }
