@@ -5,6 +5,7 @@ import {MyApp} from "../../app/app.component";
 import {Artwork} from "../../app/models/artwork";
 import {AngularFirestore} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
+import {TabsPage} from "../tabs/tabs";
 
 /**
  * Generated class for the LoginPage page.
@@ -33,6 +34,7 @@ export class LoginPage {
       this.password=localStorage.getItem("password" );
       this.login();
     }
+    alert("E' entrato nella login");
   }
 
 
@@ -124,8 +126,8 @@ export class LoginPage {
 
                   localStorage.setItem("username", this.username);
                   localStorage.setItem("password",this.password);
-                  this.navCtrl.setRoot(HelloIonicPage);
-                  this.menu.enable(true);
+                  //this.navCtrl.setRoot(TabsPage);
+                  //this.menu.enable(true);
                 }
               },
             ]

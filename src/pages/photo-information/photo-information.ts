@@ -82,13 +82,15 @@ export class PhotoInformationPage {
   like(){
     if(this.liked==false) {
       this.liked = true;
-      alert(this.artwork.id+"    "+this.artwork.tipologia)
+      //alert(this.artwork.id+"    "+this.artwork.tipologia)
       let likeTMP=[{"titolo":this.artwork.id,"tipologia":this.artwork.tipologia}];
       this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayUnion({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
     }
-    else if(this.liked==true)
-      this.liked=false;
-
+    else if(this.liked==true) {
+      this.liked = false;
+      //una soluzione potrebbe essere prendere tutto l'array like eliminare ciò che non serve e fare l'update dell'array like su firebase
+      this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayRemove({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
+    }
   }
   showDetailsPhoto(opera)
   {

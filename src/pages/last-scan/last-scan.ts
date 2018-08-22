@@ -20,6 +20,7 @@ import {AngularFirestore} from "angularfire2/firestore";
 })
 export class LastScanPage {
   private opereArray: Array<Artwork>=[];
+
   private utenteObservable: Observable<any>;
   private sizePreferiti:number;
   private sizeScan:number;
@@ -36,10 +37,12 @@ export class LastScanPage {
         let opereLikeCollection=this.db.collection<any>(o.tipologia, ref => {return ref.where("id","==",o.titolo)})
         let opereObservable:Observable<any>=opereLikeCollection.valueChanges();
         opereObservable.map(opera=>{
-          this.opereArray.push(new Artwork(opera[0].titolo, opera[0].anno, opera[0].descrizione, opera[0].artista, opera[0].periodo, opera[0].scansioni, opera[0].ubicazione, opera[0].ubicazione_citta, opera[0].tipologia, opera[0].dimensioni, opera[0].img, opera[0].img_prev,opera[0].id));
+          this.opereArray.unshift(new Artwork(opera[0].titolo, opera[0].anno, opera[0].descrizione, opera[0].artista, opera[0].periodo, opera[0].scansioni, opera[0].ubicazione, opera[0].ubicazione_citta, opera[0].tipologia, opera[0].dimensioni, opera[0].img, opera[0].img_prev,opera[0].id));
         }).subscribe();
       }
+
     }).subscribe();
+
   }
 
   ionViewDidLoad() {
