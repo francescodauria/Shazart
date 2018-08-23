@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavParams} from "ionic-angular";
+import {Nav, NavController, NavParams} from "ionic-angular";
 
 
 @Component({
@@ -9,7 +9,10 @@ import {NavParams} from "ionic-angular";
 export class HelloIonicPage {
   utente:string;
 
-  constructor(public navParams: NavParams) {
+  constructor(public navParams: NavParams, public nav:NavController) {
   this.utente=localStorage.getItem("utente");
+  //alert("prima" +this.nav.length());
+  //this.nav.popAll();
+  //alert("dopo" +this.nav.length());
   }
 }
