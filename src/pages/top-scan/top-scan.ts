@@ -15,7 +15,7 @@ import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
 })
 export class TopScanPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public events:Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {

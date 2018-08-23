@@ -26,7 +26,6 @@ export class ProfiloPage {
     public navParams: NavParams,
     public viewCtrl: ViewController,
     public loadingCtrl: LoadingController,
-    public events:Events
   ) {
 
   }

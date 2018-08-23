@@ -42,7 +42,6 @@ export class MyApp {
     public events:Events
   ) {
     this.initializeApp();
-    events.subscribe("setRoot",()=>{let page:any=HelloIonicPage;this.rootPage=page})
     // set our app's pages
 
 

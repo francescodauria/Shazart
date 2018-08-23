@@ -27,9 +27,9 @@ export class LoginPage {
   username:string;
   password:string;
   private utenteObservable: Observable<any>;
+  private setRoot:boolean=true;
 
-
-  constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore, public app:App, public events:Events) {
+  constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore) {
     this.menu.enable(false);
     this.username = "";
     this.password= "";
@@ -84,63 +84,65 @@ export class LoginPage {
       this.utenteObservable= utenteCollection.valueChanges();
       this.utenteObservable.map(val => {
      // timeout(3000);
-        if(val[0]!=undefined){
-          if(val[0].password==this.password){
-            localStorage.setItem("username", this.username);
-            localStorage.setItem("password",this.password);
-            //this.events.publish("openPage:page");
-            //this.navCtrl.setRoot(HelloIonicPage);
-            this.events.publish("setRoot");
-            this.menu.enable(true);
+        if(this.setRoot) {
+          if (val[0] != undefined) {
+            if (val[0].password == this.password) {
+              localStorage.setItem("username", this.username);
+              localStorage.setItem("password", this.password);
+              this.navCtrl.setRoot(HelloIonicPage);
+              this.menu.enable(true);
+              this.setRoot=false;
+            }
+            else {
+              let messageAlert = this.alertControl.create({
+                title: 'Attenzione!',
+                buttons: ['OK'],
+                cssClass: 'custom-alert',
+                message: 'Hei, la password che hai inserito è errata'
+              });
+              messageAlert.present();
+            }
           }
-          else{
+          else {
             let messageAlert = this.alertControl.create({
               title: 'Attenzione!',
-              buttons: ['OK'],
               cssClass: 'custom-alert',
-              message: 'Hei, la password che hai inserito è errata'
+              message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
+              buttons: [
+
+                {
+                  text: 'Annulla',
+                  role: 'cancel',
+
+                },
+                {
+                  text: 'Ok',
+                  handler: () => {
+
+                    this.db.collection("Utenti").doc(this.username).set({
+                      nome: "",
+                      cognome: "",
+                      email: "",
+                      informazioni: "Ciao sto usando Shazart!",
+                      nazionalità: "",
+                      password: this.password,
+                      sesso: "",
+                      username: this.username,
+                      like: [],
+                      scan: []
+                    })
+
+                    localStorage.setItem("username", this.username);
+                    localStorage.setItem("password", this.password);
+                    this.navCtrl.setRoot(HelloIonicPage);
+                    this.setRoot=false;
+                    this.menu.enable(true);
+                  }
+                },
+              ]
             });
             messageAlert.present();
           }
-        }
-        else{
-          let messageAlert = this.alertControl.create({
-            title: 'Attenzione!',
-            cssClass: 'custom-alert',
-            message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
-            buttons: [
-
-              {
-                text: 'Annulla',
-                role: 'cancel',
-
-              },
-              {
-                text: 'Ok',
-                handler: () => {
-
-                  this.db.collection("Utenti").doc(this.username).set({
-                    nome:"",
-                    cognome:"",
-                    email:"",
-                    informazioni:"Ciao sto usando Shazart!",
-                    nazionalità:"",
-                    password:this.password,
-                    sesso:"",
-                    username:this.username,
-                    like:[],
-                    scan:[]
-                  })
-
-                  localStorage.setItem("username", this.username);
-                  localStorage.setItem("password",this.password);
-                  this.navCtrl.setRoot(HelloIonicPage);
-                  this.menu.enable(true);
-                }
-              },
-            ]
-          });
-          messageAlert.present();
         }
       })      .subscribe(val => console.log(val));
 

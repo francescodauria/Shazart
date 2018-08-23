@@ -33,7 +33,7 @@ export class PhotoInformationPage {
   private opereArray: Array<Artwork>=[];
 
 
-  constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore, public app:App) {
+  constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
 
     this.artwork=this.navParams.get('artwork');
 
@@ -44,7 +44,6 @@ export class PhotoInformationPage {
       let opere=val[0].like;
       for(let o of opere)
       {
-        //alert(o.titolo+"   "+this.artwork.id);
         if(o.titolo==this.artwork.id)
         {
           this.liked=true;
@@ -101,18 +100,12 @@ export class PhotoInformationPage {
   like(){
     if(this.liked==false) {
       this.liked = true;
-      //alert("lo metto");
       let likeTMP=[{"titolo":this.artwork.id,"tipologia":this.artwork.tipologia}];
-
       this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayUnion({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
-      //this.navCtrl.goToRoot({});
     }
     else if(this.liked==true){
-      //alert("lo cancello");
       this.liked=false;
       this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayRemove({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
-      //this.navCtrl.goToRoot({});
-
     }
 
   }
