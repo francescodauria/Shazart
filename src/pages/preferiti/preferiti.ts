@@ -45,7 +45,6 @@ export class PreferitiPage {
 
   showDetails(a:Artwork)
   {
-    this.app.getRootNav().push(PhotoInformationPage,{"artwork":a})
-    //this.navCtrl.push(PhotoInformationPage,{"artwork":a});
+    this.navCtrl.push(PhotoInformationPage,{"artwork":a})
   }
 }

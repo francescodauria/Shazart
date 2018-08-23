@@ -9,6 +9,7 @@ import {TabsPage} from "../tabs/tabs";
 import {TopScanPage} from "../top-scan/top-scan";
 import {rootRenderNodes} from "@angular/core/src/view";
 import {templateSourceUrl} from "@angular/compiler";
+import {Subscription} from "rxjs/Subscription";
 
 /**
  * Generated class for the LoginPage page.
@@ -28,6 +29,7 @@ export class LoginPage {
   password:string;
   private utenteObservable: Observable<any>;
   private setRoot:boolean=true;
+  private subscription:Subscription;
 
   constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore) {
     this.menu.enable(false);
@@ -82,16 +84,15 @@ export class LoginPage {
       let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",this.username)});
 
       this.utenteObservable= utenteCollection.valueChanges();
-      this.utenteObservable.map(val => {
+      this.subscription = this.utenteObservable.map(val => {
      // timeout(3000);
-        if(this.setRoot) {
           if (val[0] != undefined) {
             if (val[0].password == this.password) {
               localStorage.setItem("username", this.username);
               localStorage.setItem("password", this.password);
               this.navCtrl.setRoot(HelloIonicPage);
               this.menu.enable(true);
-              this.setRoot=false;
+              this.subscription.unsubscribe();
             }
             else {
               let messageAlert = this.alertControl.create({
@@ -135,7 +136,7 @@ export class LoginPage {
                     localStorage.setItem("username", this.username);
                     localStorage.setItem("password", this.password);
                     this.navCtrl.setRoot(HelloIonicPage);
-                    this.setRoot=false;
+                    this.subscription.unsubscribe();
                     this.menu.enable(true);
                   }
                 },
@@ -143,7 +144,7 @@ export class LoginPage {
             });
             messageAlert.present();
           }
-        }
+
       })      .subscribe(val => console.log(val));
 
 
