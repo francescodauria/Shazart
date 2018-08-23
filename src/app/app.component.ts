@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import {Platform, MenuController, Nav, Events} from 'ionic-angular';
 
 import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
 import { PreferitiPage } from '../pages/preferiti/preferiti';
@@ -41,7 +41,6 @@ export class MyApp {
     public statusBar: StatusBar,
   ) {
     this.initializeApp();
-
     // set our app's pages
 
 
@@ -56,11 +55,9 @@ export class MyApp {
   }
 
 
-  openPage(page: PageInterface) {
-
+  public openPage(page: PageInterface) {
 
       this.nav.setRoot(page.pageName);
-
       this.menu.close();
   }
 

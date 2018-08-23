@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, AlertController, App} from 'ionic-angular';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Geolocation } from '@ionic-native/geolocation';
 import { Diagnostic } from '@ionic-native/diagnostic';
@@ -25,14 +25,32 @@ declare let cordova: any;
 export class PhotoInformationPage {
   images = ['logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png','logo.png'];
   private artwork:Artwork;
-  liked:boolean=false;
+  private liked:boolean=false;
   private opereObservable: Observable<Artwork[]>;
   public opereArrayUbicazione: Array<Artwork> =[];
   public opereArrayPeriodo: Array<Artwork> =[];
+  private utenteObservable: Observable<any>;
+  private opereArray: Array<Artwork>=[];
+
 
   constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
+
     this.artwork=this.navParams.get('artwork');
 
+    let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",localStorage.getItem("username"))});
+    this.utenteObservable= utenteCollection.valueChanges();
+    this.utenteObservable.map(val=>{
+      this.opereArray=[];
+      let opere=val[0].like;
+      for(let o of opere)
+      {
+        if(o.titolo==this.artwork.id)
+        {
+          this.liked=true;
+
+        }
+      }
+    }).subscribe();
 
 
     //this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Neoclassicismo", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
@@ -82,15 +100,14 @@ export class PhotoInformationPage {
   like(){
     if(this.liked==false) {
       this.liked = true;
-      //alert(this.artwork.id+"    "+this.artwork.tipologia)
       let likeTMP=[{"titolo":this.artwork.id,"tipologia":this.artwork.tipologia}];
       this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayUnion({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
     }
-    else if(this.liked==true) {
-      this.liked = false;
-      //una soluzione potrebbe essere prendere tutto l'array like eliminare ciò che non serve e fare l'update dell'array like su firebase
+    else if(this.liked==true){
+      this.liked=false;
       this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({like: firestore.FieldValue.arrayRemove({"titolo":this.artwork.id,"tipologia":this.artwork.tipologia})});
     }
+
   }
   showDetailsPhoto(opera)
   {

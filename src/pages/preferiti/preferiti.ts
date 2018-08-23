@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
+import {App, NavController, NavParams} from 'ionic-angular';
 
 import { ItemDetailsPage } from '../item-details/item-details';
 import {PhotoInformationPage} from "../photo-information/photo-information";
@@ -20,15 +20,11 @@ export class PreferitiPage {
   private sizePreferiti:number;
   private sizeScan:number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore) {
-
-  }
-
-
-  ngOnInit() {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore, public app:App) {
     let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",localStorage.getItem("username"))});
     this.utenteObservable= utenteCollection.valueChanges();
     this.utenteObservable.map(val=>{
+      this.opereArray=[];
       let opere=val[0].like;
       this.sizePreferiti=val[0].like.length;
       this.sizeScan=val[0].scan.length;
@@ -49,6 +45,7 @@ export class PreferitiPage {
 
   showDetails(a:Artwork)
   {
-    this.navCtrl.push(PhotoInformationPage,{"artwork":a});
+    this.app.getRootNav().push(PhotoInformationPage,{"artwork":a})
+    //this.navCtrl.push(PhotoInformationPage,{"artwork":a});
   }
 }

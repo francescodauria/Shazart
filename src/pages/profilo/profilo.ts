@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ViewController, LoadingController, Events} from 'ionic-angular';
+import {LoginPage} from "../login/login";
 
 @IonicPage()
 @Component({
@@ -24,8 +25,9 @@ export class ProfiloPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewCtrl: ViewController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
   ) {
+
   }
 
   updateProfile() {

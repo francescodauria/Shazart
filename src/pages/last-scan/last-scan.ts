@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {PhotoInformationPage} from "../photo-information/photo-information";
 import {Observable} from "rxjs/Observable";
@@ -18,7 +18,7 @@ import {AngularFirestore} from "angularfire2/firestore";
   selector: 'page-last-scan',
   templateUrl: 'last-scan.html',
 })
-export class LastScanPage {
+export class LastScanPage{
   private opereArray: Array<Artwork>=[];
 
   private utenteObservable: Observable<any>;
@@ -29,6 +29,7 @@ export class LastScanPage {
     let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",localStorage.getItem("username"))});
     this.utenteObservable= utenteCollection.valueChanges();
     this.utenteObservable.map(val=>{
+      this.opereArray=[];
       let opere=val[0].scan;
       this.sizePreferiti=val[0].like.length;
       this.sizeScan=val[0].scan.length;

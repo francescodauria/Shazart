@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
-import {AlertController, IonicPage, MenuController, NavController, NavParams} from 'ionic-angular';
+import {Component, ViewChild} from '@angular/core';
+import {AlertController, App, Events, IonicPage, MenuController, Nav, NavController, NavParams} from 'ionic-angular';
 import {HelloIonicPage} from "../hello-ionic/hello-ionic";
 import {MyApp} from "../../app/app.component";
 import {Artwork} from "../../app/models/artwork";
 import {AngularFirestore} from "angularfire2/firestore";
 import {Observable} from "rxjs/Observable";
 import {TabsPage} from "../tabs/tabs";
+import {TopScanPage} from "../top-scan/top-scan";
+import {rootRenderNodes} from "@angular/core/src/view";
+import {templateSourceUrl} from "@angular/compiler";
 
 /**
  * Generated class for the LoginPage page.
@@ -20,9 +23,11 @@ import {TabsPage} from "../tabs/tabs";
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
   username:string;
   password:string;
   private utenteObservable: Observable<any>;
+  private setRoot:boolean=true;
 
   constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore) {
     this.menu.enable(false);
@@ -34,8 +39,9 @@ export class LoginPage {
       this.password=localStorage.getItem("password" );
       this.login();
     }
-    alert("E' entrato nella login");
+
   }
+
 
 
   ionViewDidLoad() {
@@ -78,61 +84,65 @@ export class LoginPage {
       this.utenteObservable= utenteCollection.valueChanges();
       this.utenteObservable.map(val => {
      // timeout(3000);
-        if(val[0]!=undefined){
-          if(val[0].password==this.password){
-            localStorage.setItem("username", this.username);
-            localStorage.setItem("password",this.password);
-            this.navCtrl.setRoot(HelloIonicPage);
-            this.menu.enable(true);
+        if(this.setRoot) {
+          if (val[0] != undefined) {
+            if (val[0].password == this.password) {
+              localStorage.setItem("username", this.username);
+              localStorage.setItem("password", this.password);
+              this.navCtrl.setRoot(HelloIonicPage);
+              this.menu.enable(true);
+              this.setRoot=false;
+            }
+            else {
+              let messageAlert = this.alertControl.create({
+                title: 'Attenzione!',
+                buttons: ['OK'],
+                cssClass: 'custom-alert',
+                message: 'Hei, la password che hai inserito è errata'
+              });
+              messageAlert.present();
+            }
           }
-          else{
+          else {
             let messageAlert = this.alertControl.create({
               title: 'Attenzione!',
-              buttons: ['OK'],
               cssClass: 'custom-alert',
-              message: 'Hei, la password che hai inserito è errata'
+              message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
+              buttons: [
+
+                {
+                  text: 'Annulla',
+                  role: 'cancel',
+
+                },
+                {
+                  text: 'Ok',
+                  handler: () => {
+
+                    this.db.collection("Utenti").doc(this.username).set({
+                      nome: "",
+                      cognome: "",
+                      email: "",
+                      informazioni: "Ciao sto usando Shazart!",
+                      nazionalità: "",
+                      password: this.password,
+                      sesso: "",
+                      username: this.username,
+                      like: [],
+                      scan: []
+                    })
+
+                    localStorage.setItem("username", this.username);
+                    localStorage.setItem("password", this.password);
+                    this.navCtrl.setRoot(HelloIonicPage);
+                    this.setRoot=false;
+                    this.menu.enable(true);
+                  }
+                },
+              ]
             });
             messageAlert.present();
           }
-        }
-        else{
-          let messageAlert = this.alertControl.create({
-            title: 'Attenzione!',
-            cssClass: 'custom-alert',
-            message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
-            buttons: [
-
-              {
-                text: 'Annulla',
-                role: 'cancel',
-
-              },
-              {
-                text: 'Ok',
-                handler: () => {
-
-                  this.db.collection("Utenti").doc(this.username).set({
-                    nome:"",
-                    cognome:"",
-                    email:"",
-                    informazioni:"Ciao sto usando Shazart!",
-                    nazionalità:"",
-                    password:this.password,
-                    sesso:"",
-                    username:this.username,
-                    like:[],
-                    scan:[]
-                  })
-
-                  localStorage.setItem("username", this.username);
-                  localStorage.setItem("password",this.password);
-                  //this.navCtrl.setRoot(TabsPage);
-                  //this.menu.enable(true);
-                }
-              },
-            ]
-          });
-          messageAlert.present();
         }
       })      .subscribe(val => console.log(val));
 
@@ -140,6 +150,7 @@ export class LoginPage {
     }
 
     //let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
+
 
   }
 }
