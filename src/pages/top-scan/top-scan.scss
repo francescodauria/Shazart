@@ -1,81 +1,88 @@
 page-top-scan {
-  .image-scan-pari{
-    height:50%;
-    width: 50%;
-    border-bottom-right-radius: 30%;
-    border-top-left-radius: 30%;
+
+  .background {
+    background-size: 135%, 110%;
+    background-image: url(../assets/backgrounds/le_tre_grazie.jpg);
+    background-repeat: no-repeat;
   }
 
-  .description-scan-pari{
-    float:right;
-    height:30%;
-    width: 50%;
-  background-color: transparent;
-  }
+    .image-scan-pari {
+      height: 50%;
+      width: 50%;
+      border-bottom-right-radius: 30%;
+      border-top-left-radius: 30%;
+    }
 
-  .description-scan-pari h2{
-    height:100%;
-    margin-top: 50px !important;
-    margin-left: 20px;
-    font-size: large;
-    font-family: "Courgette", sans-serif;
-  }
-  .description-scan-pari p{
-    height:100%;
-    margin-left: 20px;
-    font-size: 15px;
-    font-family: "Courgette", sans-serif;
-    color: #404040;
-  }
-  .image-scan-dispari{
-    height:50%;
-    width: 50%;
-    border-bottom-left-radius: 30%;
-    border-top-right-radius: 30%;
-  }
+    .description-scan-pari {
+      float: right;
+      height: 30%;
+      width: 50%;
+      background-color: transparent;
+    }
 
-  .description-scan-dispari{
-    float: left;
-    height:50%;
-    width: 50%;
-    text-align: right;
-    background-color: transparent;
+    .description-scan-pari h2 {
+      height: 100%;
+      margin-top: 50px !important;
+      margin-left: 20px;
+      font-size: large;
+      font-family: "Courgette", sans-serif;
+    }
+    .description-scan-pari p {
+      height: 100%;
+      margin-left: 20px;
+      font-size: 15px;
+      font-family: "Courgette", sans-serif;
+      color: #404040;
+    }
+    .image-scan-dispari {
+      height: 50%;
+      width: 50%;
+      border-bottom-left-radius: 30%;
+      border-top-right-radius: 30%;
+    }
+
+    .description-scan-dispari {
+      float: left;
+      height: 50%;
+      width: 50%;
+      text-align: right;
+      background-color: transparent;
+    }
+    .description-scan-dispari h2 {
+      height: 100%;
+      margin-top: 50px !important;
+      margin-right: 20px;
+      font-size: large;
+      font-family: "Courgette", sans-serif;
+    }
+    .description-scan-dispari p {
+      height: 100%;
+      margin-right: 20px;
+      font-size: 15px;
+      font-family: "Courgette", sans-serif;
+      color: #404040;
+    }
+    .riga {
+      margin-top: -5px;
+      margin-bottom: 15px;
+      margin-right: -5px;
+      margin-left: -5px;
+      background-color: white;
+    }
+    .riga_dispari {
+      border-top-right-radius: 30%;
+      border-bottom-left-radius: 20%;
+    }
+    .riga_pari {
+      border-top-left-radius: 30%;
+      border-bottom-right-radius: 20%;
+    }
+    ion-content {
+      background-color: #EFEFEF !important;
+    }
+    #titolo-top-scan {
+      font-family: "Courgette", sans-serif;
+      text-align: center;
+      margin-bottom: 20px;
+    }
   }
-  .description-scan-dispari h2{
-    height:100%;
-    margin-top: 50px !important;
-    margin-right: 20px;
-    font-size: large;
-    font-family: "Courgette", sans-serif;
-  }
-  .description-scan-dispari p{
-    height:100%;
-    margin-right: 20px;
-    font-size: 15px;
-    font-family: "Courgette", sans-serif;
-    color:#404040;
-  }
-  .riga{
-    margin-top: -5px;
-    margin-bottom: 15px;
-    margin-right: -5px;
-    margin-left: -5px;
-    background-color: white;
-  }
-  .riga_dispari{
-    border-top-right-radius: 30%;
-    border-bottom-left-radius: 20%;
-  }
-  .riga_pari{
-    border-top-left-radius: 30%;
-    border-bottom-right-radius: 20%;
-  }
-  ion-content{
-    background-color: #EFEFEF !important;
-  }
-  #titolo-top-scan{
-    font-family: "Courgette", sans-serif;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-}

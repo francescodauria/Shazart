@@ -140,7 +140,7 @@ export class ScanPage {
 
             if (this.occupato) {
               if (this.risultato != undefined) {
-                this.subscription=this.db.collection<any>(this.risultato).valueChanges().map(value => {
+                this.subscription=this.db.collection<any>("/Opere").valueChanges().map(value => {
                   for(let opera of value){
                     for(const item of this.logoJSON.webDetection.webEntities)
                     {

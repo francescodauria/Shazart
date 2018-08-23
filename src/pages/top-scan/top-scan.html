@@ -14,73 +14,15 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding  class="background">
   <h2 id="titolo-top-scan">Top del momento</h2>
-  <div class="riga_pari riga">
-    <img class="image-scan-pari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-pari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
+  <div *ngFor="let o of opere; let i=index" [ngClass]="i%2==0 ? 'riga_pari' : 'riga_dispari'" class="riga" (click)="showDetails(o)">
+    <img [ngClass]="i%2==0 ? 'image-scan-pari' : 'image-scan-dispari'" [src]=o.img_prev>
+    <div [ngClass]="i%2==0 ? 'description-scan-pari' : 'description-scan-dispari'">
+      <h2>{{o.titolo}}</h2>
+      <p>{{o.artista}}</p>
     </div>
   </div>
-  <div class="riga_dispari riga">
-    <img class="image-scan-dispari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-dispari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div>
-  <div class="riga_pari riga">
-    <img class="image-scan-pari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-pari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div>
-  <div class="riga_dispari riga">
-    <img class="image-scan-dispari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-dispari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div> <div class="riga_pari riga">
-  <img class="image-scan-pari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-  <div class="description-scan-pari">
-    <h2>Titolo opera</h2>
-    <p>Artista</p>
-  </div>
-</div>
-  <div class="riga_dispari riga">
-    <img class="image-scan-dispari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-dispari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div> <div class="riga_pari riga">
-  <img class="image-scan-pari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-  <div class="description-scan-pari">
-    <h2>Titolo opera</h2>
-    <p>Artista</p>
-  </div>
-</div>
-  <div class="riga_dispari riga">
-    <img class="image-scan-dispari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-dispari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div> <div class="riga_pari riga">
-  <img class="image-scan-pari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-  <div class="description-scan-pari">
-    <h2>Titolo opera</h2>
-    <p>Artista</p>
-  </div>
-</div>
-  <div class="riga_dispari riga">
-    <img class="image-scan-dispari" src="https://i.pinimg.com/originals/d5/88/36/d588367552e7cadd6e24db87cc0f9ba5.jpg">
-    <div class="description-scan-dispari">
-      <h2>Titolo opera</h2>
-      <p>Artista</p>
-    </div>
-  </div>
+
+
 </ion-content>

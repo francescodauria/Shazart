@@ -58,25 +58,25 @@ export class PhotoInformationPage {
 
 
 
-    let edificioCollectionUbicazione=this.db.collection<Artwork>('/Edificio', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
-    let pitturaCollectionUbicazione=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let edificioCollectionUbicazione=this.db.collection<Artwork>('/Opere', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    /*let pitturaCollectionUbicazione=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
     let sculturaCollectionUbicazione=this.db.collection<Artwork>('/Scultura', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
-    let monumentoCollectionUbicazione=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});
+    let monumentoCollectionUbicazione=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});*/
 
     this.createArray(edificioCollectionUbicazione,this.opereArrayUbicazione);
-    this.createArray(pitturaCollectionUbicazione,this.opereArrayUbicazione);
+   /* this.createArray(pitturaCollectionUbicazione,this.opereArrayUbicazione);
     this.createArray(sculturaCollectionUbicazione,this.opereArrayUbicazione);
-    this.createArray(monumentoCollectionUbicazione,this.opereArrayUbicazione);
+    this.createArray(monumentoCollectionUbicazione,this.opereArrayUbicazione);*/
 
-    let edificioCollectionPeriodo=this.db.collection<Artwork>('/Edificio', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
-    let pitturaCollectionPeriodo=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    let edificioCollectionPeriodo=this.db.collection<Artwork>('/Opere', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    /*let pitturaCollectionPeriodo=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
     let sculturaCollectionPeriodo=this.db.collection<Artwork>('/Scultura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
-    let monumentoCollectionPeriodo=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
+    let monumentoCollectionPeriodo=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("periodo", "==",this.artwork.periodo)});*/
 
     this.createArray(edificioCollectionPeriodo,this.opereArrayPeriodo);
-    this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
+   /* this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
     this.createArray(sculturaCollectionPeriodo,this.opereArrayPeriodo);
-    this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);
+    this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);*/
 
 
   }
