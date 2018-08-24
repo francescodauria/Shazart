@@ -36,6 +36,7 @@ export class ScanPage {
   public occupato: boolean = false;
   public logoJSON: any;
   public subscription:Subscription;
+  public subscriptionCamera:Subscription;
 
   constructor(public nav: NavController, private zone: NgZone, public platform: Platform, public vision: GoogleCloudVisionServiceProvider, public menu: MenuController, private db: AngularFirestore) {
     this.menu.swipeEnable(false);
@@ -71,7 +72,7 @@ export class ScanPage {
     this.menu.swipeEnable(false);
     this.risultato = undefined;
     this.occupato = false;
-    Observable.interval(1000).subscribe(x => {
+    this.subscriptionCamera=Observable.interval(1000).subscribe(x => {
       this.takePicture();
     });
 
@@ -104,7 +105,7 @@ export class ScanPage {
 
 
             if (this.logoJSON.labelAnnotations != undefined) {
-              //alert(JSON.stringify(this.logoJSON.labelAnnotations))
+              alert(JSON.stringify(this.logoJSON.webDetection.webEntities));
 
               for (const item of this.logoJSON.labelAnnotations) {
 
@@ -114,7 +115,6 @@ export class ScanPage {
                     break;
                   }
                   case "painting": {
-                    //alert("è entrato in painting");
                     this.risultato = "Pittura";
                     break;
 
@@ -148,8 +148,10 @@ export class ScanPage {
                       {
                         artwork = new Artwork(opera.titolo, opera.anno, opera.descrizione, opera.artista, opera.periodo, opera.scansioni+1, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev,opera.id);
                         this.trovato_qualcosa = true;
+                        break;
                       }
                     }
+                    if(this.trovato_qualcosa)break;
                   }
 
                   if (!this.trovato_qualcosa) {
@@ -157,12 +159,13 @@ export class ScanPage {
                   }
                   else {
                     this.nav.push(PhotoInformationPage, {"artwork": artwork});
-                    this.db.collection(artwork.tipologia).doc(artwork.id).update({scansioni:artwork.scansioni});
+                    this.db.collection("/Opere").doc(artwork.id).update({scansioni:artwork.scansioni});
                     this.subscription.unsubscribe();
                     this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({scan: firestore.FieldValue.arrayRemove({"titolo":artwork.id,"tipologia":artwork.tipologia})});
                     this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({scan: firestore.FieldValue.arrayUnion({"titolo":artwork.id,"tipologia":artwork.tipologia})});
                     this.stopCamera();
                     this.porta_a_informazioni = false;
+                    this.subscriptionCamera.unsubscribe();
                   }
                 }).subscribe();
               }

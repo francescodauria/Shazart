@@ -4,8 +4,8 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title style="font-family: 'Pacifico', sans-serif;">Shazart</ion-title>
-    <button ion-button class="bottone" style="float:right">
-      <ion-icon style="zoom:4;" name="checkmark"></ion-icon>
+    <button ion-button class="bottone" style="float:right" (click)="updateProfile()">
+      <ion-icon style="zoom:4;" name="checkmark" ></ion-icon>
     </button>
   </ion-navbar>
 </ion-header>
@@ -21,11 +21,11 @@
     </ion-col>
     <!-- Information about user -->
     <ion-col col-3 text-center style="padding-top:25px">
-      <h6>21</h6>
+      <h6>{{sizeScan}}</h6>
       <p no-padding no-margin>Scan</p>
     </ion-col>
     <ion-col col-3 text-center style="padding-top:25px">
-      <h6>114</h6>
+      <h6>{{sizePreferiti}}</h6>
       <p no-paddin no-margin>Preferite</p>
     </ion-col>
     <ion-col col-3 text-center style="padding-top:25px">
@@ -47,30 +47,25 @@
   <!-- Form -->
   <ion-item>
     <ion-label>
-      <ion-icon name="clipboard" color="gray"></ion-icon>
+      <ion-icon name="contact" color="gray"></ion-icon>
     </ion-label>
-    <ion-input type="text" [value]="user_data.name_surname"></ion-input>
+    <ion-input type="text" [(ngModel)]="user_data.name" placeholder="Nome"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>
-      <ion-icon name="person" color="gray"></ion-icon>
+      <ion-icon name="contact" color="gray"></ion-icon>
     </ion-label>
-    <ion-input type="text" [value]="user_data.username"></ion-input>
+  <ion-input type="text" id="surname" [value]="user_data.surname" placeholder="Cognome"></ion-input>
   </ion-item>
 
-  <ion-item>
-    <ion-label>
-      <ion-icon name="globe" color="gray"></ion-icon>
-    </ion-label>
-    <ion-input type="text" [value]="user_data.website"></ion-input>
-  </ion-item>
+
 
   <ion-item>
     <ion-label>
       <ion-icon name="quote" color="gray"></ion-icon>
     </ion-label>
-    <ion-textarea placeholder="" [value]="user_data.description"></ion-textarea>
+    <ion-textarea placeholder="" id="description"[(ngModel)]="user_data.description" placeholder="Informazioni"></ion-textarea>
   </ion-item>
 
   <!-- Private information form -->
@@ -81,16 +76,24 @@
 
   <ion-item>
     <ion-label>
-      <ion-icon name="mail" color="gray"></ion-icon>
+      <ion-icon name="person" color="gray"></ion-icon>
     </ion-label>
-    <ion-input type="text" [value]="user_data.email"></ion-input>
+    <ion-input type="text" id="username" disabled="true" [(ngModel)]="user_data.username"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label>
-      <ion-icon name="phone-portrait" color="gray"></ion-icon>
+      <ion-icon name="key" color="gray"></ion-icon>
     </ion-label>
-    <ion-input type="text" [value]="user_data.phone" placeholder="Aggiungi telefono"></ion-input>
+    <ion-input type="password" id="password" [(ngModel)]="user_data.password" placeholder="Password"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label>
+      <ion-icon name="mail" color="gray"></ion-icon>
+    </ion-label>
+    <ion-input type="text" [(ngModel)]="user_data.email" placeholder="Email"></ion-input>
   </ion-item>
 
   <ion-item>
@@ -98,9 +101,9 @@
       <ion-icon name="transgender" color="gray"></ion-icon>
     </ion-label>
     <ion-select class="custom-select" [(ngModel)]="user_data.gender">
-      <ion-option value="male">Maschio</ion-option>
-      <ion-option value="female">Femmina</ion-option>
-      <ion-option value="none">Non specificato</ion-option>
+      <ion-option value="Maschio" >Maschio</ion-option>
+      <ion-option value="Femmina">Femmina</ion-option>
+      <ion-option value="Non specificato">Non specificato</ion-option>
     </ion-select>
   </ion-item>
 
