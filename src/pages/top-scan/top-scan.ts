@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {Events, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, Events, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {AngularFirestore} from "angularfire2/firestore";
 import {Observable} from "rxjs";
 import {Artwork} from "../../app/models/artwork";
 import {PhotoInformationPage} from "../photo-information/photo-information";
+import {Network} from "@ionic-native/network";
 
 /**
  * Generated class for the TopScanPage page.
@@ -21,8 +22,28 @@ export class TopScanPage {
   public opereObservable:Observable<any>;
   public opere:Array<Artwork>=[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db:AngularFirestore) {
-    let opereCollection=this.db.collection<any>('/Opere', ref => {return ref.orderBy("scansioni","desc")});
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db:AngularFirestore, public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController) {
+
+    if(this.network.type=="none")
+    {
+      let connectSubscription = this.network.onConnect().subscribe(() => {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        connectSubscription.unsubscribe();
+      });
+      let messageAlert = alertCtrl.create({
+        title: 'Avviso:',
+        buttons: ['OK'],
+        cssClass: 'custom-alert',
+        message: "Hei! Per poter utilizzare l'app devi avere la connessione."
+      });
+      messageAlert.present();
+    }
+    else {
+      let loader = this.loadingCtrl.create({
+        spinner: "bubbles"
+      });
+      loader.present();
+      let opereCollection=this.db.collection<any>('/Opere', ref => {return ref.orderBy("scansioni","desc")});
     this.opereObservable= opereCollection.valueChanges();
     let count=0;
     this.opereObservable.map(val=>{
@@ -36,14 +57,10 @@ export class TopScanPage {
         }
 
       }
+    }).subscribe(()=>loader.dismissAll());
 
-
-
-
-    }).subscribe();
+    }
   }
-
-
   showDetails(a:Artwork)
   {
     this.navCtrl.push(PhotoInformationPage,{"artwork":a})

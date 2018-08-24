@@ -1,5 +1,15 @@
 import {Component, ViewChild} from '@angular/core';
-import {AlertController, App, Events, IonicPage, MenuController, Nav, NavController, NavParams} from 'ionic-angular';
+import {
+  AlertController,
+  App,
+  Events,
+  IonicPage,
+  LoadingController,
+  MenuController,
+  Nav,
+  NavController,
+  NavParams
+} from 'ionic-angular';
 import {HelloIonicPage} from "../hello-ionic/hello-ionic";
 import {MyApp} from "../../app/app.component";
 import {Artwork} from "../../app/models/artwork";
@@ -10,6 +20,7 @@ import {TopScanPage} from "../top-scan/top-scan";
 import {rootRenderNodes} from "@angular/core/src/view";
 import {templateSourceUrl} from "@angular/compiler";
 import {Subscription} from "rxjs/Subscription";
+import {Network} from "@ionic-native/network";
 
 /**
  * Generated class for the LoginPage page.
@@ -31,7 +42,7 @@ export class LoginPage {
   private setRoot:boolean=true;
   private subscription:Subscription;
 
-  constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore) {
+  constructor(private alertControl: AlertController,public navCtrl: NavController, public navParams: NavParams, public menu:MenuController,private db: AngularFirestore, public loadingCtrl: LoadingController,private network: Network) {
     this.menu.enable(false);
     this.username = "";
     this.password= "";
@@ -51,107 +62,130 @@ export class LoginPage {
   }
 
   public login() {
-    if(this.username=="" && this.password!="") {
-      let messageAlert = this.alertControl.create({
-        title: 'Attenzione!',
-        buttons: ['OK'],
-        cssClass: 'custom-alert',
-        message: 'Hei, devi inserire un username per accedere'
-      });
-      messageAlert.present();
-    }
-    else if(this.username!="" && this.password==""){
-      let messageAlert = this.alertControl.create({
-        title: 'Attenzione!',
-        buttons: ['OK'],
-        cssClass: 'custom-alert',
-        message: 'Hei, devi inserire una password per accedere'
-      });
-      messageAlert.present();
-    }
-    else if(this.username=="" && this.password==""){
-      let messageAlert = this.alertControl.create({
-        title: 'Attenzione!',
-        buttons: ['OK'],
-        cssClass: 'custom-alert',
-        message: 'Hei, devi inserire un username ed una password per accedere'
-      });
-      messageAlert.present();
-    }
-    else{
+    if (this.network.type != "none") {
 
 
-      let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",this.username)});
+      let loader = this.loadingCtrl.create({
+        spinner: "bubbles"
+      });
 
-      this.utenteObservable= utenteCollection.valueChanges();
-      this.subscription = this.utenteObservable.map(val => {
-     // timeout(3000);
-          if (val[0] != undefined) {
-            if (val[0].password == this.password) {
-              localStorage.setItem("username", this.username);
-              localStorage.setItem("password", this.password);
-              this.navCtrl.setRoot(HelloIonicPage);
-              this.menu.enable(true);
-              this.subscription.unsubscribe();
+        if (this.username == "" && this.password != "") {
+          let messageAlert = this.alertControl.create({
+            title: 'Attenzione!',
+            buttons: ['OK'],
+            cssClass: 'custom-alert',
+            message: 'Hei, devi inserire un username per accedere'
+          });
+          messageAlert.present();
+        }
+        else if (this.username != "" && this.password == "") {
+          let messageAlert = this.alertControl.create({
+            title: 'Attenzione!',
+            buttons: ['OK'],
+            cssClass: 'custom-alert',
+            message: 'Hei, devi inserire una password per accedere'
+          });
+          messageAlert.present();
+        }
+        else if (this.username == "" && this.password == "") {
+          let messageAlert = this.alertControl.create({
+            title: 'Attenzione!',
+            buttons: ['OK'],
+            cssClass: 'custom-alert',
+            message: 'Hei, devi inserire un username ed una password per accedere'
+          });
+          messageAlert.present();
+        }
+        else {
+
+          loader.present();
+          let utenteCollection = this.db.collection<any>('/Utenti', ref => {
+            return ref.where("username", "==", this.username)
+          });
+
+          this.utenteObservable = utenteCollection.valueChanges();
+          this.subscription = this.utenteObservable.map(val => {
+            // timeout(3000);
+            if (val[0] != undefined) {
+              if (val[0].password == this.password) {
+                localStorage.setItem("username", this.username);
+                localStorage.setItem("password", this.password);
+                loader.dismissAll();
+                this.menu.enable(true);
+                this.subscription.unsubscribe();
+                this.navCtrl.setRoot(HelloIonicPage);
+              }
+              else {
+                let messageAlert = this.alertControl.create({
+                  title: 'Attenzione!',
+                  buttons: ['OK'],
+                  cssClass: 'custom-alert',
+                  message: 'Hei, la password che hai inserito è errata'
+                });
+                messageAlert.present();
+              }
             }
             else {
               let messageAlert = this.alertControl.create({
                 title: 'Attenzione!',
-                buttons: ['OK'],
                 cssClass: 'custom-alert',
-                message: 'Hei, la password che hai inserito è errata'
+                message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
+                buttons: [
+
+                  {
+                    text: 'Annulla',
+                    role: 'cancel',
+
+                  },
+                  {
+                    text: 'Ok',
+                    handler: () => {
+
+                      this.db.collection("Utenti").doc(this.username).set({
+                        nome: "",
+                        cognome: "",
+                        email: "",
+                        informazioni: "Ciao sto usando Shazart!",
+                        nazionalità: "",
+                        password: this.password,
+                        sesso: "",
+                        username: this.username,
+                        like: [],
+                        scan: []
+                      })
+
+                      localStorage.setItem("username", this.username);
+                      localStorage.setItem("password", this.password);
+                      loader.dismissAll();
+                      this.subscription.unsubscribe();
+                      this.navCtrl.setRoot(HelloIonicPage);
+                      this.menu.enable(true);
+                    }
+                  },
+                ]
               });
               messageAlert.present();
             }
-          }
-          else {
-            let messageAlert = this.alertControl.create({
-              title: 'Attenzione!',
-              cssClass: 'custom-alert',
-              message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
-              buttons: [
 
-                {
-                  text: 'Annulla',
-                  role: 'cancel',
+          }).subscribe();
 
-                },
-                {
-                  text: 'Ok',
-                  handler: () => {
 
-                    this.db.collection("Utenti").doc(this.username).set({
-                      nome: "",
-                      cognome: "",
-                      email: "",
-                      informazioni: "Ciao sto usando Shazart!",
-                      nazionalità: "",
-                      password: this.password,
-                      sesso: "",
-                      username: this.username,
-                      like: [],
-                      scan: []
-                    })
+        }
 
-                    localStorage.setItem("username", this.username);
-                    localStorage.setItem("password", this.password);
-                    this.navCtrl.setRoot(HelloIonicPage);
-                    this.subscription.unsubscribe();
-                    this.menu.enable(true);
-                  }
-                },
-              ]
-            });
-            messageAlert.present();
-          }
+        //let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
 
-      })      .subscribe(val => console.log(val));
-
+       // Get back to profile page. You should do that after you got data from API
+    }
+    else{
+      let messageAlert = this.alertControl.create({
+        title: 'Attenzione!',
+        buttons: ['OK'],
+        cssClass: 'custom-alert',
+        message: 'Hei, per autenticarti hai bisogno della connessione.'
+      });
+      messageAlert.present();
 
     }
-
-    //let a:Artwork=new Artwork("La gioconda","1503","Quadro","Leonardo","Rinascimento",0,"Louvre","Quadro","50x30",null,null);
-
 
   }
 }

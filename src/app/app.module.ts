@@ -26,6 +26,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import {AngularFireModule} from "angularfire2";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {environment} from "../environment/environment";
+import {Network} from "@ionic-native/network";
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import {environment} from "../environment/environment";
     GoogleCloudVisionServiceProvider,
     Geolocation,
     Diagnostic,
-    LaunchNavigator
+    LaunchNavigator,
+    Network
   ]
 })
 export class AppModule {}

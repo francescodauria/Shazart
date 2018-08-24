@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content class="background">
+  <ion-refresher style="background-color: transparent;"(ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-row padding>
     <!-- Avatar -->
     <ion-col col-3>

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, NgZone, OnInit} from '@angular/core';
-import {IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
+import {AlertController, IonicPage, MenuController, NavController, NavParams, Platform} from 'ionic-angular';
 import {style} from "@angular/animations";
 import {Observable, Subscription} from 'rxjs-compat'
 import {Artwork} from "../../app/models/artwork";
@@ -8,6 +8,7 @@ import {GoogleCloudVisionServiceProvider} from "../../providers/google-cloud-vis
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "angularfire2/firestore";
 import 'rxjs/add/operator/map';
 import {firestore} from "firebase";
+import {Network} from "@ionic-native/network";
 
 
 /**
@@ -38,7 +39,7 @@ export class ScanPage {
   public subscription:Subscription;
   public subscriptionCamera:Subscription;
 
-  constructor(public nav: NavController, private zone: NgZone, public platform: Platform, public vision: GoogleCloudVisionServiceProvider, public menu: MenuController, private db: AngularFirestore) {
+  constructor(public nav: NavController, private zone: NgZone, public platform: Platform, public vision: GoogleCloudVisionServiceProvider, public menu: MenuController, private db: AngularFirestore,private network: Network, private alertCtrl: AlertController) {
     this.menu.swipeEnable(false);
     this.startCamera();
     this.zone.run(() => {
@@ -55,27 +56,41 @@ export class ScanPage {
   }
 
   startCamera() {
-    // let react = {x: 40, y: 100, width: this.calcWidth ,height: 220}   //Decrepted due to previous code
-    CameraPreview.startCamera({
-      x: 0,
-      y: 40,
-      width: window.screen.width,
-      height: window.screen.height,
-      toBack: true,
-      previewDrag: false,
-      tapPhoto: false,
-      tapFocus: true,
-      camera: 'rear'
-    });
-    //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
-    this.camera = true;
-    this.menu.swipeEnable(false);
-    this.risultato = undefined;
-    this.occupato = false;
-    this.subscriptionCamera=Observable.interval(1000).subscribe(x => {
-      this.takePicture();
-    });
 
+    if (this.network.type != "none") {
+
+      // let react = {x: 40, y: 100, width: this.calcWidth ,height: 220}   //Decrepted due to previous code
+      CameraPreview.startCamera({
+        x: 0,
+        y: 40,
+        width: window.screen.width,
+        height: window.screen.height,
+        toBack: true,
+        previewDrag: false,
+        tapPhoto: false,
+        tapFocus: true,
+        camera: 'rear'
+      });
+      //.startCamera(react, defaultCamera:'back',tapEnabled: true, dragEnabled: true, toBack:true, alpha:1);  //Decrepeted
+      this.camera = true;
+      this.menu.swipeEnable(false);
+      this.risultato = undefined;
+      this.occupato = false;
+      this.subscriptionCamera = Observable.interval(1000).subscribe(x => {
+        this.takePicture();
+      });
+    }
+
+    else{
+      let messageAlert = this.alertCtrl.create({
+        title: 'Attenzione!',
+        buttons: ['OK'],
+        cssClass: 'custom-alert',
+        message: 'Hei, per scansionare hai bisogno della connessione.'
+      });
+      messageAlert.present();
+
+    }
 
   }
 
@@ -117,7 +132,6 @@ export class ScanPage {
                   case "painting": {
                     this.risultato = "Pittura";
                     break;
-
                   }
                   case "sculpture": {
                     this.risultato = "Scultura";
@@ -125,7 +139,10 @@ export class ScanPage {
                   }
                   case "monument": {
                     this.risultato = "Monumento";
-
+                    break;
+                  }
+                  case "art":{
+                    this.risultato="Arte";
                     break;
                   }
                 }
