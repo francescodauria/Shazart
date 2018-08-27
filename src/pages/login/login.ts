@@ -142,6 +142,7 @@ export class LoginPage {
                     handler: () => {
 
                       this.db.collection("Utenti").doc(this.username).set({
+                        foto_profilo:"",
                         nome: "",
                         cognome: "",
                         email: "",

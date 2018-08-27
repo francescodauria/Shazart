@@ -16,8 +16,11 @@
 <ion-content padding>
   <ion-row>
     <!-- Avatar -->
+
     <ion-col col-3>
-      <img src="assets/icon/profile.png" class="avatar" alt="">
+      <img *ngIf="user_data.profile_img!=''" [src]="sanititizerImage" class="avatar" alt="">
+      <img *ngIf="user_data.profile_img==''" src="assets/icon/profile.png" class="avatar" alt="">
+
     </ion-col>
     <!-- Information about user -->
     <ion-col col-3 text-center style="padding-top:25px">
@@ -37,7 +40,7 @@
   <ion-row no-padding no-margin>
     <ion-col no-padding no-margin col-4></ion-col>
     <ion-col no-padding no-margin text-center col-8>
-      <button class="edit-button">Cambia foto profilo</button>
+      <button class="edit-button"(click)="changePhoto()">Cambia foto profilo</button>
     </ion-col>
     <ion-col col-3></ion-col>
   </ion-row>
@@ -85,7 +88,8 @@
     <ion-label>
       <ion-icon name="key" color="gray"></ion-icon>
     </ion-label>
-    <ion-input type="password" id="password" [(ngModel)]="user_data.password" placeholder="Password"></ion-input>
+    <ion-input [type]="passwordType" id="password" [(ngModel)]="user_data.password" placeholder="Password"></ion-input>
+    <ion-icon item-end [name]="passwordIcon" class="passwordIcon" (click)='hideShowPassword()'></ion-icon>
   </ion-item>
 
 

@@ -110,7 +110,7 @@ export class ScanPage {
     CameraPreview.takePicture(size, imgData => {
         if (this.occupato == false) {
           this.occupato = true;
-         //alert(this.occupato);
+          //alert(this.occupato);
           this.trovato_qualcosa = false;
 
 
@@ -121,6 +121,7 @@ export class ScanPage {
 
             if (this.logoJSON.labelAnnotations != undefined) {
               alert(JSON.stringify(this.logoJSON.webDetection.webEntities));
+              alert(JSON.stringify(this.logoJSON.labelAnnotations));
 
               for (const item of this.logoJSON.labelAnnotations) {
 
@@ -143,6 +144,10 @@ export class ScanPage {
                   }
                   case "art":{
                     this.risultato="Arte";
+                    break;
+                  }
+                  case "architecture":{
+                    this.risultato="Architettura";
                     break;
                   }
                 }
@@ -195,7 +200,7 @@ export class ScanPage {
             }
 
 
-            }, err => {
+          }, err => {
             this.risultato = err;
 
           });

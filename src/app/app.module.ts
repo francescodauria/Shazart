@@ -27,6 +27,9 @@ import {AngularFireModule} from "angularfire2";
 import {AngularFirestoreModule} from "angularfire2/firestore";
 import {environment} from "../environment/environment";
 import {Network} from "@ionic-native/network";
+import {Crop} from "@ionic-native/crop";
+import {Camera} from "@ionic-native/camera";
+import {Base64} from "@ionic-native/base64";
 
 
 @NgModule({
@@ -74,7 +77,10 @@ import {Network} from "@ionic-native/network";
     Geolocation,
     Diagnostic,
     LaunchNavigator,
-    Network
+    Network,
+    Camera,
+    Base64,
+    Crop
   ]
 })
 export class AppModule {}

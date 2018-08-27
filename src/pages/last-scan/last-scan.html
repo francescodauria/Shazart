@@ -20,7 +20,9 @@
   <ion-row padding>
     <!-- Avatar -->
     <ion-col col-3>
-      <img src="assets/icon/profile.png" class="avatar" alt="">
+      <img *ngIf="foto_profilo!=''" [src]="sanititizerImage" class="avatar" alt="">
+      <img *ngIf="foto_profilo==''" src="assets/icon/profile.png" class="avatar" alt="">
+
     </ion-col>
     <!-- Information about user -->
     <ion-col col-3 text-center style="padding-top:25px">

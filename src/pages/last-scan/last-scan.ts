@@ -5,6 +5,7 @@ import {Observable} from "rxjs/Observable";
 import {Artwork} from "../../app/models/artwork";
 import {AngularFirestore} from "angularfire2/firestore";
 import {Network} from "@ionic-native/network";
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 /**
@@ -25,8 +26,11 @@ export class LastScanPage{
   private utenteObservable: Observable<any>;
   private sizePreferiti:number;
   private sizeScan:number;
+  private foto_profilo:string;
+  private sanititizerImage:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private db:AngularFirestore, public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,private db:AngularFirestore, public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController,    private sanitizer:DomSanitizer) {
   if(this.network.type=="none")
   {
     let connectSubscription = this.network.onConnect().subscribe(() => {
@@ -55,6 +59,9 @@ export class LastScanPage{
       let opere = val[0].scan;
       this.sizePreferiti = val[0].like.length;
       this.sizeScan = val[0].scan.length;
+      this.foto_profilo=val[0].foto_profilo;
+      this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.foto_profilo);
+ 
       for (let o of opere) {
         let opereLikeCollection = this.db.collection<any>("/Opere", ref => {
           return ref.where("id", "==", o.titolo)

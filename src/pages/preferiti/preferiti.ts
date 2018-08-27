@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Observable";
 import {Artwork} from "../../app/models/artwork";
 import construct = Reflect.construct;
 import {Network} from "@ionic-native/network";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'page-preferiti',
@@ -23,8 +24,10 @@ export class PreferitiPage {
   private utenteObservable: Observable<any>;
   private sizePreferiti:number;
   private sizeScan:number;
+  private foto_profilo:string;
+  private sanititizerImage:any;
 
-  public constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore, public app:App,  public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController) {
+  public constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore, public app:App,  public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController, private sanitizer:DomSanitizer) {
 
     if(this.network.type=="none")
     {
@@ -53,6 +56,9 @@ export class PreferitiPage {
         let opere=val[0].like;
         this.sizePreferiti=val[0].like.length;
         this.sizeScan=val[0].scan.length;
+        this.foto_profilo=val[0].foto_profilo;
+        this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.foto_profilo);
+
         for(let o of opere)
         {
           let opereLikeCollection=this.db.collection<any>("/Opere", ref => {return ref.where("id","==",o.titolo)})

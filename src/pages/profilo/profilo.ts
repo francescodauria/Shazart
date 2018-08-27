@@ -6,13 +6,18 @@ import {
   ViewController,
   LoadingController,
   Events,
-  AlertController
+  AlertController, Platform
 } from 'ionic-angular';
 import {LoginPage} from "../login/login";
 import {Artwork} from "../../app/models/artwork";
 import {Observable} from "rxjs/Observable";
 import {AngularFirestore} from "angularfire2/firestore";
 import {Network} from "@ionic-native/network";
+import {Crop} from "@ionic-native/crop";
+import {Camera} from "@ionic-native/camera";
+import {Base64} from "@ionic-native/base64";
+import {DomSanitizer} from "@angular/platform-browser";
+
 
 @IonicPage()
 @Component({
@@ -28,7 +33,7 @@ export class ProfiloPage {
 
   // You can get this data from your API. This is a dumb data for being an example.
   public user_data = {
-    profile_img: 'https://scontent-mxp1-1.xx.fbcdn.net/v/t31.0-8/13937764_10208899139974056_7157026056838053495_o.jpg?_nc_cat=0&oh=5298fb6f9d840a6c35597aed49540982&oe=5BDFA0EF',
+    profile_img: '',
     name: '',
     surname: '',
     username: '',
@@ -39,6 +44,17 @@ export class ProfiloPage {
     nationality:''
   };
 
+  public options: any = {
+    allowEdit: true,
+    sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
+    mediaType: this.camera.MediaType.ALLMEDIA,
+    destinationType: this.camera.DestinationType.FILE_URI
+  }
+  private immagine:string = "assets/icon/profile.png";
+  private sanititizerImage:any;
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -46,7 +62,12 @@ export class ProfiloPage {
     public loadingCtrl: LoadingController,
     public db:AngularFirestore,
     private network: Network,
-    private alertControl: AlertController
+    private camera:Camera,
+    private crop:Crop,
+    private platform:Platform,
+    private alertControl: AlertController,
+    private base64: Base64,
+    private sanitizer:DomSanitizer
   ) {
     if (this.network.type != "none") {
       let loader = this.loadingCtrl.create({
@@ -62,6 +83,7 @@ export class ProfiloPage {
           let opere = val[0].scan;
           this.sizePreferiti = val[0].like.length;
           this.sizeScan = val[0].scan.length;
+          this.user_data.profile_img=val[0].foto_profilo;
           this.user_data.name = val[0].nome;
           this.user_data.surname = val[0].cognome;
           this.user_data.username = val[0].username;
@@ -70,16 +92,19 @@ export class ProfiloPage {
           this.user_data.nationality = val[0].nazionalita;
           this.user_data.gender = val[0].sesso;
           this, this.user_data.email = val[0].email;
+          this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.user_data.profile_img);
+
         }).subscribe(()=>loader.dismissAll());
 
       }); // Get back to profile page. You should do that after you got data from API
+
     }
     else{
       let messageAlert = this.alertControl.create({
         title: 'Attenzione!',
         buttons: ['OK'],
         cssClass: 'custom-alert',
-        message: 'Hei, per autenticarti hai bisogno della connessione.'
+        message: 'Hei, per visualizzare i dati hai bisogno della connessione.'
       });
       messageAlert.present();
 
@@ -94,6 +119,7 @@ export class ProfiloPage {
       });
       loader.present().then(() => {
         this.db.collection("/Utenti").doc(this.user_data.username).update({
+          foto_profilo:this.user_data.profile_img,
           nome: this.user_data.name,
           cognome: this.user_data.surname,
           password: this.user_data.password,
@@ -118,6 +144,37 @@ export class ProfiloPage {
     }
   }
 
+  changePhoto(){
+
+    return this.camera.getPicture(this.options)
+      .then((fileUri) => {
+        // Crop Image, on android this returns something like, '/storage/emulated/0/Android/...'
+        // Only giving an android example as ionic-native camera has built in cropping ability
+        if (this.platform.is('ios')) {
+          return fileUri
+        } else if (this.platform.is('android')) {
+          // Modify fileUri format, may not always be necessary
+          fileUri = 'file://' + fileUri;
+
+          /* Using cordova-plugin-crop starts here */
+
+          return this.crop.crop(fileUri, { quality: 100, targetWidth: -1, targetHeight: -1 });
+        }
+      })
+      .then((path) => {
+        this.base64.encodeFile(path)
+          .then((stringa)=>
+            this.user_data.profile_img=stringa
+          ).then(()=>
+          this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.user_data.profile_img));
+      })
+  }
+
+
+  hideShowPassword() {
+    this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+    this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
   dismiss() {
     this.viewCtrl.dismiss();
   }

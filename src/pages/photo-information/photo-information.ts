@@ -64,9 +64,9 @@ export class PhotoInformationPage {
     let monumentoCollectionUbicazione=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("ubicazione_citta", "==",this.artwork.ubicazione_citta)});*/
 
     this.createArray(edificioCollectionUbicazione,this.opereArrayUbicazione);
-   /* this.createArray(pitturaCollectionUbicazione,this.opereArrayUbicazione);
-    this.createArray(sculturaCollectionUbicazione,this.opereArrayUbicazione);
-    this.createArray(monumentoCollectionUbicazione,this.opereArrayUbicazione);*/
+    /* this.createArray(pitturaCollectionUbicazione,this.opereArrayUbicazione);
+     this.createArray(sculturaCollectionUbicazione,this.opereArrayUbicazione);
+     this.createArray(monumentoCollectionUbicazione,this.opereArrayUbicazione);*/
 
     let edificioCollectionPeriodo=this.db.collection<Artwork>('/Opere', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
     /*let pitturaCollectionPeriodo=this.db.collection<Artwork>('/Pittura', ref => {return ref.where("periodo", "==",this.artwork.periodo)});
@@ -74,9 +74,9 @@ export class PhotoInformationPage {
     let monumentoCollectionPeriodo=this.db.collection<Artwork>('/Monumento', ref => {return ref.where("periodo", "==",this.artwork.periodo)});*/
 
     this.createArray(edificioCollectionPeriodo,this.opereArrayPeriodo);
-   /* this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
-    this.createArray(sculturaCollectionPeriodo,this.opereArrayPeriodo);
-    this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);*/
+    /* this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
+     this.createArray(sculturaCollectionPeriodo,this.opereArrayPeriodo);
+     this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);*/
 
 
   }
@@ -89,7 +89,7 @@ export class PhotoInformationPage {
     this.opereObservable.map(val => {
       for (let opera of val) {
         if(opera.titolo!=this.artwork.titolo)
-        opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev,opera.id));
+          opereArray.push(new Artwork(opera.titolo, opera.anno, opera.descrizione,opera.artista, opera.periodo, opera.scansioni, opera.ubicazione, opera.ubicazione_citta, opera.tipologia, opera.dimensioni, opera.img, opera.img_prev,opera.id));
       }
 
     })      .subscribe(val => console.log(val));
@@ -132,10 +132,11 @@ export class PhotoInformationPage {
 
             start: position.coords.latitude + ','+ position.coords.longitude
           };
+
           nav.navigate(location, options)
             .then(
-              success => console.log('Launched navigator'),
-              error => console.log('Error launching navigator', error)
+              success => alert("navigatore lanciato"),
+              error => alert("navigatore non funzionante")
             );
 
         },error=>{
