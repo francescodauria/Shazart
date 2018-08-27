@@ -9,7 +9,6 @@ import {Observable} from "rxjs/Observable";
 import {Artwork} from "../../app/models/artwork";
 import construct = Reflect.construct;
 import {Network} from "@ionic-native/network";
-import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'page-preferiti',
@@ -25,9 +24,8 @@ export class PreferitiPage {
   private sizePreferiti:number;
   private sizeScan:number;
   private foto_profilo:string;
-  private sanititizerImage:any;
 
-  public constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore, public app:App,  public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController, private sanitizer:DomSanitizer) {
+  public constructor(public navCtrl: NavController, public navParams: NavParams,private db: AngularFirestore, public app:App,  public loadingCtrl: LoadingController,private network: Network, private alertCtrl: AlertController) {
 
     if(this.network.type=="none")
     {
@@ -36,7 +34,7 @@ export class PreferitiPage {
         connectSubscription.unsubscribe();
       });
       let messageAlert = alertCtrl.create({
-        title: 'Avviso:',
+        title: 'Attenzione:',
         buttons: ['OK'],
         cssClass: 'custom-alert',
         message: "Hei! Per poter utilizzare l'app devi avere la connessione."
@@ -57,7 +55,6 @@ export class PreferitiPage {
         this.sizePreferiti=val[0].like.length;
         this.sizeScan=val[0].scan.length;
         this.foto_profilo=val[0].foto_profilo;
-        this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.foto_profilo);
 
         for(let o of opere)
         {

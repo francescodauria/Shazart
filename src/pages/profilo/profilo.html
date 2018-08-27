@@ -18,7 +18,7 @@
     <!-- Avatar -->
 
     <ion-col col-3>
-      <img *ngIf="user_data.profile_img!=''" [src]="sanititizerImage" class="avatar" alt="">
+      <img *ngIf="user_data.profile_img!=''" [src]="user_data.profile_img" class="avatar" alt="">
       <img *ngIf="user_data.profile_img==''" src="assets/icon/profile.png" class="avatar" alt="">
 
     </ion-col>

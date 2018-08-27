@@ -32,7 +32,6 @@ export class ScanPage {
   public camera: boolean;
   public i: number = 0;
   public risultato: string = "";
-  public porta_a_informazioni: boolean = true;
   public trovato_qualcosa: boolean = false;
   public occupato: boolean = false;
   public logoJSON: any;
@@ -98,6 +97,8 @@ export class ScanPage {
     CameraPreview.stopCamera();
     this.camera = false;
     this.menu.swipeEnable(true);
+    if(this.subscription!=undefined) this.subscription.unsubscribe();
+    if(this.subscriptionCamera!=undefined) this.subscriptionCamera.unsubscribe();
 
 
   }
@@ -182,12 +183,9 @@ export class ScanPage {
                   else {
                     this.nav.push(PhotoInformationPage, {"artwork": artwork});
                     this.db.collection("/Opere").doc(artwork.id).update({scansioni:artwork.scansioni});
-                    this.subscription.unsubscribe();
                     this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({scan: firestore.FieldValue.arrayRemove({"titolo":artwork.id,"tipologia":artwork.tipologia})});
                     this.db.collection("/Utenti").doc(localStorage.getItem("username")).update({scan: firestore.FieldValue.arrayUnion({"titolo":artwork.id,"tipologia":artwork.tipologia})});
                     this.stopCamera();
-                    this.porta_a_informazioni = false;
-                    this.subscriptionCamera.unsubscribe();
                   }
                 }).subscribe();
               }

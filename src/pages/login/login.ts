@@ -116,6 +116,7 @@ export class LoginPage {
                 this.navCtrl.setRoot(HelloIonicPage);
               }
               else {
+                loader.dismissAll();
                 let messageAlert = this.alertControl.create({
                   title: 'Attenzione!',
                   buttons: ['OK'],
@@ -126,6 +127,7 @@ export class LoginPage {
               }
             }
             else {
+              loader.dismissAll();
               let messageAlert = this.alertControl.create({
                 title: 'Attenzione!',
                 cssClass: 'custom-alert',

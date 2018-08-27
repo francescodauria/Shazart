@@ -54,7 +54,7 @@
 
 
   </div>
-  <div class="slider-div">
+  <div *ngIf="opereArrayPeriodo.length!=0" class="slider-div">
     <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del {{artwork.periodo}}</h5>
     <ion-slides class="image-slider" slidesPerView="2" >
       <ion-slide *ngFor="let opera of opereArrayPeriodo" class="ion-slide" (click)="showDetailsPhoto(opera)">
@@ -64,7 +64,7 @@
       </ion-slide>
     </ion-slides>
   </div>
-  <div class="slider-div">
+  <div *ngIf="opereArrayUbicazione!=0" class="slider-div">
     <h5 style="margin-bottom: 0.5rem; margin-top:1rem">Se hai tempo in città, non perdere queste!</h5>
     <ion-slides class="image-slider" slidesPerView="2" >
       <ion-slide *ngFor="let opera of opereArrayUbicazione" class="ion-slide" (click)="showDetailsPhoto(opera)">

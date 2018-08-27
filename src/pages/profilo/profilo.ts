@@ -50,8 +50,6 @@ export class ProfiloPage {
     mediaType: this.camera.MediaType.ALLMEDIA,
     destinationType: this.camera.DestinationType.FILE_URI
   }
-  private immagine:string = "assets/icon/profile.png";
-  private sanititizerImage:any;
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
 
@@ -67,7 +65,7 @@ export class ProfiloPage {
     private platform:Platform,
     private alertControl: AlertController,
     private base64: Base64,
-    private sanitizer:DomSanitizer
+    private alertCtrl:AlertController
   ) {
     if (this.network.type != "none") {
       let loader = this.loadingCtrl.create({
@@ -92,7 +90,6 @@ export class ProfiloPage {
           this.user_data.nationality = val[0].nazionalita;
           this.user_data.gender = val[0].sesso;
           this, this.user_data.email = val[0].email;
-          this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.user_data.profile_img);
 
         }).subscribe(()=>loader.dismissAll());
 
@@ -118,16 +115,28 @@ export class ProfiloPage {
         cssClass: "caricamento"
       });
       loader.present().then(() => {
-        this.db.collection("/Utenti").doc(this.user_data.username).update({
-          foto_profilo:this.user_data.profile_img,
-          nome: this.user_data.name,
-          cognome: this.user_data.surname,
-          password: this.user_data.password,
-          informazioni: this.user_data.description,
-          email: this.user_data.email,
-          nazionalita: this.user_data.nationality,
-          sesso: this.user_data.gender
-        });
+
+        if(this.user_data.profile_img.length>1000000){
+          let messageAlert = this.alertCtrl.create({
+            title: 'Avviso:',
+            buttons: ['OK'],
+            cssClass: 'custom-alert',
+            message: "Hei! Hai scelto un'immagine troppo grande, non deve superare 1MB"
+          });
+          messageAlert.present();
+        }
+
+          this.db.collection("/Utenti").doc(this.user_data.username).update({
+            foto_profilo: this.user_data.profile_img,
+            nome: this.user_data.name,
+            cognome: this.user_data.surname,
+            password: this.user_data.password,
+            informazioni: this.user_data.description,
+            email: this.user_data.email,
+            nazionalita: this.user_data.nationality,
+            sesso: this.user_data.gender
+          });
+
         loader.dismissAll()
       }); // Get back to profile page. You should do that after you got data from API
 
@@ -164,9 +173,7 @@ export class ProfiloPage {
       .then((path) => {
         this.base64.encodeFile(path)
           .then((stringa)=>
-            this.user_data.profile_img=stringa
-          ).then(()=>
-          this.sanititizerImage = this.sanitizer.bypassSecurityTrustUrl(this.user_data.profile_img));
+            this.user_data.profile_img=("data:image/jpeg;base64,"+stringa.split("data:image/*;charset=utf-8;base64,")[1]).replace(/\n|\r|\t/g,""))
       })
   }
 
