@@ -100,7 +100,6 @@ export class ScanPage {
     if(this.subscription!=undefined) this.subscription.unsubscribe();
     if(this.subscriptionCamera!=undefined) this.subscriptionCamera.unsubscribe();
 
-
   }
 
   takePicture() {
@@ -121,8 +120,8 @@ export class ScanPage {
 
 
             if (this.logoJSON.labelAnnotations != undefined) {
-              alert(JSON.stringify(this.logoJSON.webDetection.webEntities));
-              alert(JSON.stringify(this.logoJSON.labelAnnotations));
+              //alert(JSON.stringify(this.logoJSON.webDetection.webEntities));
+              //alert(JSON.stringify(this.logoJSON.labelAnnotations));
 
               for (const item of this.logoJSON.labelAnnotations) {
 

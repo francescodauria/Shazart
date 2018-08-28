@@ -69,7 +69,8 @@ export class LastScanPage{
         }).subscribe(()=>loader.dismissAll());
       }
 
-    }).subscribe();
+    }).subscribe(()=>{if(this.sizeScan==0) loader.dismissAll();}
+  );
 
 
   }

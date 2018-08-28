@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import {IonicPage, NavController, NavParams, AlertController, App} from 'ionic-angular';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -9,6 +9,7 @@ import {Observable} from "rxjs/Observable";
 import {firestore} from "firebase";
 
 declare let cordova: any;
+
 
 /**
  * Generated class for the PhotoInformationPage page.
@@ -33,7 +34,7 @@ export class PhotoInformationPage {
   private opereArray: Array<Artwork>=[];
 
 
-  constructor(private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
+  constructor( private zone: NgZone,private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
 
     this.artwork=this.navParams.get('artwork');
 
@@ -51,10 +52,9 @@ export class PhotoInformationPage {
         }
       }
     }).subscribe();
-
+    //this.ionViewDidLoad();
 
     //this.artwork= new Artwork("La Nascita di Venere","1400", "descrizione gioconda", "Michelangelo Buonarroti", "Neoclassicismo", 0, "Museo del Louvre", "Firenze", "pittura","piccola", null,null)
-
 
 
 
@@ -80,8 +80,12 @@ export class PhotoInformationPage {
 
 
   }
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad PhotoInformationPage');
+    document.getElementById("background").style.backgroundImage = 'url("'+this.artwork.img+'")';
+    document.getElementById("background").style.backgroundSize='300%,100%';
+    document.getElementById("background").style.backgroundRepeat="no-repeat";
+    document.getElementById("background").style.filter="blur(5px)";
   }
 
   createArray(collection: AngularFirestoreCollection<Artwork>, opereArray: Array<Artwork>) {

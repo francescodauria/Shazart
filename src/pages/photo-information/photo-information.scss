@@ -1,8 +1,9 @@
 page-photo-information {
 
-  ion-slide.swiper-slide {
-    left: -2%;
-
+  .black{
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
   }
 
   .custom-alert{
@@ -28,12 +29,11 @@ page-photo-information {
   }
   .image-slider{
     height: 200px;
-    background-color: #fff;
+    background-color: transparent;
   }
   .ion-slide,.slide-zoom{
     background-color: #296881;
-    margin-left:5px;
-    margin-right: 5px;
+
 
   }
   .ion-slide{

@@ -56,7 +56,7 @@
   </div>
   <div *ngIf="opereArrayPeriodo.length!=0" class="slider-div">
     <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del {{artwork.periodo}}</h5>
-    <ion-slides class="image-slider" slidesPerView="2" >
+    <ion-slides class="image-slider" slidesPerView="2" spaceBetween="10" [loop]="true">
       <ion-slide *ngFor="let opera of opereArrayPeriodo" class="ion-slide" (click)="showDetailsPhoto(opera)">
         <img [src]=opera.img_prev class="thumb-img"/>
         <p class="titolo">{{opera.titolo}}</p>
@@ -66,7 +66,7 @@
   </div>
   <div *ngIf="opereArrayUbicazione!=0" class="slider-div">
     <h5 style="margin-bottom: 0.5rem; margin-top:1rem">Se hai tempo in città, non perdere queste!</h5>
-    <ion-slides class="image-slider" slidesPerView="2" >
+    <ion-slides class="image-slider" slidesPerView="2" spaceBetween="10" [loop]="true">
       <ion-slide *ngFor="let opera of opereArrayUbicazione" class="ion-slide" (click)="showDetailsPhoto(opera)">
         <img [src]=opera.img_prev class="thumb-img"/>
         <p class="titolo">{{opera.titolo}}</p>
@@ -77,3 +77,4 @@
 
 
 </ion-content>
+<div class="black" id="background"></div>

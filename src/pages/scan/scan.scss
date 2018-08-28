@@ -4,7 +4,12 @@ page-scan{
     padding-top: 86%;
     bottom: 0;
   }
-
+  .black{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    opacity: 0.4;
+  }
   #startScan{
     border-radius: 50%;
     height:200px;
@@ -46,12 +51,7 @@ page-scan{
 
 
 }
-.black{
-  width: 100%;
-  height: 100%;
-  background-color: rgb(0,0,0);
-  opacity: 0.4;
-}
+
 
 #gif{
   position: absolute;
