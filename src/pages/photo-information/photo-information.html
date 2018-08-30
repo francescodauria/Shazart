@@ -13,6 +13,11 @@
 
 
 <ion-content padding>
+  <div *ngIf="portrait" class="black" [ngStyle]='{"background-image":"url("+this.artwork.img+")","background-size":"150%,100%"}'></div>
+  <div *ngIf="!portrait" class="black" [ngStyle]='{"background-image":"url("+this.artwork.img+")","background-size":"250%,100%"}'></div>
+  <div class="opaco" ></div>
+
+  <div class="content">
   <div class="about-header">
 
 
@@ -55,7 +60,7 @@
 
   </div>
   <div *ngIf="opereArrayPeriodo.length!=0" class="slider-div">
-    <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del {{artwork.periodo}}</h5>
+    <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del di questo periodo! </h5>
     <ion-slides class="image-slider" slidesPerView="2" spaceBetween="10" [loop]="true">
       <ion-slide *ngFor="let opera of opereArrayPeriodo" class="ion-slide" (click)="showDetailsPhoto(opera)">
         <img [src]=opera.img_prev class="thumb-img"/>
@@ -64,7 +69,7 @@
       </ion-slide>
     </ion-slides>
   </div>
-  <div *ngIf="opereArrayUbicazione!=0" class="slider-div">
+  <div *ngIf="opereArrayUbicazione.length!=0" class="slider-div">
     <h5 style="margin-bottom: 0.5rem; margin-top:1rem">Se hai tempo in città, non perdere queste!</h5>
     <ion-slides class="image-slider" slidesPerView="2" spaceBetween="10" [loop]="true">
       <ion-slide *ngFor="let opera of opereArrayUbicazione" class="ion-slide" (click)="showDetailsPhoto(opera)">
@@ -75,6 +80,7 @@
     </ion-slides>
   </div>
 
+  </div>
 
 </ion-content>
-<div class="black" id="background"></div>
+

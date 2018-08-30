@@ -21,6 +21,7 @@ import {rootRenderNodes} from "@angular/core/src/view";
 import {templateSourceUrl} from "@angular/compiler";
 import {Subscription} from "rxjs/Subscription";
 import {Network} from "@ionic-native/network";
+import {AdminInserimentoPage} from "../admin-inserimento/admin-inserimento";
 
 /**
  * Generated class for the LoginPage page.
@@ -99,24 +100,38 @@ export class LoginPage {
         else {
 
           loader.present();
-          let utenteCollection = this.db.collection<any>('/Utenti', ref => {
+          let utenteCollection = this.db.collection<any>('/Utenti/', ref => {
             return ref.where("username", "==", this.username)
           });
 
+          let temp:any;
           this.utenteObservable = utenteCollection.valueChanges();
           this.subscription = this.utenteObservable.map(val => {
             // timeout(3000);
-            if (val[0] != undefined) {
-              if (val[0].password == this.password) {
+
+            temp = val;
+
+          }).subscribe(() =>{
+
+            if (temp[0] != undefined) {
+              if (temp[0].password == this.password) {
                 localStorage.setItem("username", this.username);
                 localStorage.setItem("password", this.password);
                 loader.dismissAll();
                 this.menu.enable(true);
                 this.subscription.unsubscribe();
-                this.navCtrl.setRoot(HelloIonicPage);
+
+                if(this.username=="admin"){
+                  this.navCtrl.setRoot(AdminInserimentoPage);
+                }
+                else {
+
+                  this.navCtrl.setRoot(HelloIonicPage);
+                }
               }
               else {
                 loader.dismissAll();
+                this.subscription.unsubscribe();
                 let messageAlert = this.alertControl.create({
                   title: 'Attenzione!',
                   buttons: ['OK'],
@@ -128,6 +143,7 @@ export class LoginPage {
             }
             else {
               loader.dismissAll();
+              this.subscription.unsubscribe();
               let messageAlert = this.alertControl.create({
                 title: 'Attenzione!',
                 cssClass: 'custom-alert',
@@ -160,7 +176,6 @@ export class LoginPage {
                       localStorage.setItem("username", this.username);
                       localStorage.setItem("password", this.password);
                       loader.dismissAll();
-                      this.subscription.unsubscribe();
                       this.navCtrl.setRoot(HelloIonicPage);
                       this.menu.enable(true);
                     }
@@ -170,7 +185,22 @@ export class LoginPage {
               messageAlert.present();
             }
 
-          }).subscribe();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          });
 
 
         }

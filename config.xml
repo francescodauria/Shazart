@@ -116,15 +116,22 @@
     <allow-navigation href="http://192.168.1.100:8104" />
     <allow-navigation href="http://192.168.0.107:8103" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-crop" spec="^0.4.0" />
     <allow-navigation href="http://192.168.0.107:8104" />
     <allow-navigation href="http://192.168.0.107:8105" />
     <allow-navigation href="http://192.168.0.107:8106" />
     <allow-navigation href="http://192.168.0.107:8107" />
+    <plugin name="com-badrit-base64" spec="^0.2.0" />
     <allow-navigation href="http://192.168.0.107:8100" />
     <allow-navigation href="http://192.168.0.107:8101" />
-    <plugin name="cordova-plugin-crop" spec="^0.4.0" />
-    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
-    <plugin name="com-badrit-base64" spec="^0.2.0" />
+    <allow-navigation href="http://192.168.1.110:8100" />
+    <allow-navigation href="http://192.168.0.107:8102" />
+    <allow-navigation href="http://192.168.1.110:8103" />
+    <allow-navigation href="http://192.168.1.110:8104" />
+    <allow-navigation href="http://192.168.1.110:8105" />
+    <allow-navigation href="http://192.168.1.110:8101" />
+    <allow-navigation href="http://192.168.1.110:8102" />
     <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
 </widget>

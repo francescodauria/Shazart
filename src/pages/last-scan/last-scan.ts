@@ -66,10 +66,17 @@ export class LastScanPage{
         let opereObservable: Observable<any> = opereLikeCollection.valueChanges();
         opereObservable.map(opera => {
           this.opereArray.unshift(new Artwork(opera[0].titolo, opera[0].anno, opera[0].descrizione, opera[0].artista, opera[0].periodo, opera[0].scansioni, opera[0].ubicazione, opera[0].ubicazione_citta, opera[0].tipologia, opera[0].dimensioni, opera[0].img, opera[0].img_prev, opera[0].id));
-        }).subscribe(()=>loader.dismissAll());
+        }).subscribe(()=> {
+          if(this.opereArray.length==this.sizeScan) loader.dismissAll();
+
+        });
       }
 
-    }).subscribe(()=>{if(this.sizeScan==0) loader.dismissAll();}
+    }).subscribe(()=>{
+        if(this.sizeScan==0) {
+          loader.dismissAll();
+        }
+    }
   );
 
 

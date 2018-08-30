@@ -32,11 +32,25 @@ export class PhotoInformationPage {
   public opereArrayPeriodo: Array<Artwork> =[];
   private utenteObservable: Observable<any>;
   private opereArray: Array<Artwork>=[];
-
+  public portrait:boolean;
 
   constructor( private zone: NgZone,private alertCtrl: AlertController,private diagnostic: Diagnostic,public geolocation: Geolocation, public navCtrl: NavController, public navParams: NavParams, private launchNavigator: LaunchNavigator,private db:AngularFirestore) {
 
     this.artwork=this.navParams.get('artwork');
+    let image=new Image();
+    image.src=this.artwork.img;
+
+      image.onload=()=>{
+        let imgWidth = image.naturalWidth;
+        let imgHeight = image.naturalHeight;
+        if(imgHeight<imgWidth){
+          this.portrait=false;
+        }
+        else{
+          this.portrait=true;
+        }
+      };
+
 
     let utenteCollection=this.db.collection<any>('/Utenti', ref => {return ref.where("username", "==",localStorage.getItem("username"))});
     this.utenteObservable= utenteCollection.valueChanges();
@@ -77,16 +91,7 @@ export class PhotoInformationPage {
     /* this.createArray(pitturaCollectionPeriodo,this.opereArrayPeriodo);
      this.createArray(sculturaCollectionPeriodo,this.opereArrayPeriodo);
      this.createArray(monumentoCollectionPeriodo,this.opereArrayPeriodo);*/
-
-
-  }
-  ionViewDidEnter() {
-    console.log('ionViewDidLoad PhotoInformationPage');
-    document.getElementById("background").style.backgroundImage = 'url("'+this.artwork.img+'")';
-    document.getElementById("background").style.backgroundSize='300%,100%';
-    document.getElementById("background").style.backgroundRepeat="no-repeat";
-    document.getElementById("background").style.filter="blur(5px)";
-  }
+    }
 
   createArray(collection: AngularFirestoreCollection<Artwork>, opereArray: Array<Artwork>) {
     this.opereObservable= collection.valueChanges();

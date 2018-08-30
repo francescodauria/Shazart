@@ -1,0 +1,155 @@
+<!--
+  Generated template for the AdminInserimentoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header >
+  <ion-navbar color="primary"  >
+    <button ion-button style="float:left" (click)="logout()">
+      <ion-icon  style="zoom:1.5;" name="power" ></ion-icon>
+    </button>
+    <ion-title style="font-family: 'Pacifico', sans-serif;">Shazart</ion-title>
+    <button ion-button class="bottone" style="float:right" (click)="insertArtwork()">
+      <ion-icon style="zoom:3.5;" name="checkmark" ></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content padding>
+  <div>
+    <ion-row>
+      <ion-col col-3>
+        <img *ngIf="artwork_data.img_prev!=''" [src]="artwork_data.img_prev" class="avatar" alt="">
+        <img  *ngIf="artwork_data.img_prev==''"  src="assets/icon/no_image_available.jpg" class="avatar" alt="">
+
+      </ion-col>
+      <!-- Information about user -->
+      <ion-col no-padding no-margin text-center col-8>
+        <button class="edit-button"(click)="insertPhotoPreview()">Inserisci preview</button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div>
+    <ion-row>
+      <ion-col col-3>
+        <img *ngIf="artwork_data.img!=''" [src]="artwork_data.img" class="avatar" alt="">
+        <img  *ngIf="artwork_data.img==''"  src="assets/icon/no_image_available.jpg" class="avatar" alt="">
+      </ion-col>
+      <!-- Information about user -->
+      <ion-col no-padding no-margin text-center col-8>
+        <button class="edit-button"(click)="insertPhoto()">Inserisci immagine</button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div>
+    <div align="center">
+      <ion-col no-padding no-margin text-center col-8>
+        <button  class="edit-button-vision"(click)="callVision()">Invia immagine a vision
+          <ion-icon class="arrow" name="arrow-dropright" >
+
+          </ion-icon></button>
+      </ion-col>
+    </div>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="contact" color="gray"></ion-icon>
+      </ion-label>
+
+      <ion-input type="text" *ngIf="entities.length==0" placeholder="Seleziona ID"></ion-input>
+      <ion-select class="custom-select" *ngIf="entities.length!=0"  placeholder={{entities[0]}} [(ngModel)]="artwork_data.id">
+
+        <ion-option  *ngFor="let item of entities" [selected]="entities[1]" [value]=item >{{item}}</ion-option>
+      </ion-select>
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="brush" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.titolo" placeholder="Titolo"></ion-input>
+      <ion-icon item-end name="search" class="icon-search"(click)='openWikipedia()'></ion-icon>
+    </ion-item>
+
+
+
+
+
+
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="person" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.artista" placeholder="Artista"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="quote" color="gray"></ion-icon>
+      </ion-label>
+      <ion-textarea (input)="adjustTextarea($event);" [(ngModel)]="artwork_data.descrizione" placeholder="Descrizione"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="calendar" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.anno" placeholder="Anno"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="crop" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.dimensioni" placeholder="Dimensioni"></ion-input>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="color-palette" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.periodo" placeholder="Periodo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="easel" color="gray"></ion-icon>
+      </ion-label>
+
+      <ion-select class="custom-select"   placeholder="Tipologia" [(ngModel)]="artwork_data.tipologia">
+        <ion-option  [value]="Pittura" >Pittura</ion-option>
+        <ion-option  [value]="Scultura" >Scultura</ion-option>
+        <ion-option  [value]="Edificio" >Edificio</ion-option>
+        <ion-option  [value]="Monumento" >Monumento</ion-option>
+      </ion-select>
+
+
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="pin" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.ubicazione" placeholder="Ubicazione (specifica)"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <ion-icon name="globe" color="gray"></ion-icon>
+      </ion-label>
+      <ion-input type="text" [(ngModel)]="artwork_data.ubicazione_citta" placeholder="Ubicazione (città)"></ion-input>
+    </ion-item>
+  </div>
+
+</ion-content>
+
+
+

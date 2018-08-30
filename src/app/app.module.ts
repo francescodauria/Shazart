@@ -30,6 +30,7 @@ import {Network} from "@ionic-native/network";
 import {Crop} from "@ionic-native/crop";
 import {Camera} from "@ionic-native/camera";
 import {Base64} from "@ionic-native/base64";
+import {AdminInserimentoPage} from "../pages/admin-inserimento/admin-inserimento";
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import {Base64} from "@ionic-native/base64";
     TopScanPage,
     ScanPage,
     PhotoInformationPage,
-    LoginPage
+    LoginPage,
+    AdminInserimentoPage
   ],
   imports: [
     HttpClientModule,
@@ -67,7 +69,8 @@ import {Base64} from "@ionic-native/base64";
     TopScanPage,
     ScanPage,
     PhotoInformationPage,
-    LoginPage
+    LoginPage,
+    AdminInserimentoPage
   ],
   providers: [
     StatusBar,
