@@ -34,7 +34,7 @@ export class MyApp {
   ];
   // make HelloIonicPage the root (or first) page
   rootPage = LoginPage;
-
+  private username:string;
   constructor(
     public platform: Platform,
     public menu: MenuController,

@@ -1,16 +1,30 @@
 page-login {
 
-
   .login-content {
-    background: #56CA96;
+    background-image: url(https://i.pinimg.com/originals/c4/ee/64/c4ee646b83fe96612bfb34a6a5fa541b.gif);
+    background-size: 150%,100%;
+    background-position: center;
 
     .logo-row {
       padding-top: 50px;
       padding-bottom: 20px;
     }
 
+    #logoDiv{
+      border-radius: 50%;
+      height: 150px;
+      width: 150px;
+      background-color: rgba(70,70,70,0.4);
+      background-size: 100%,100%;
+
+    }
+    #logo{
+      height:100%;
+      width: 105%;
+      border-radius: 50%;
+      margin-top: -5px;
+    }
     .login-box {
-      background: #399F8B;
       padding: 20px 20px 0px 20px;
       margin-top: 30px;
     }
@@ -41,7 +55,7 @@ page-login {
     }
 
     .submit-btn {
-      background: #51CFB1;
+      background: #183d4f;
       border-radius: 30px !important;
       border: 1px solid #ffffff;
     }
@@ -49,10 +63,6 @@ page-login {
     .register-btn {
       color: #ffffff;
       font-size: 0.8em;
-    }
-    .custom-alert{
-      background-color: #FFFFFF;
-      color:black;
     }
   }
 

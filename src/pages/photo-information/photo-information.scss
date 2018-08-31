@@ -1,5 +1,23 @@
 page-photo-information {
 
+  ion-content{
+    font-family: "Courgette", "sans-serif";
+    font-size: 115%;
+  }
+  #descrizione{
+    font-size: 115%;
+  }
+  .position_text{
+    display: table-cell;
+    vertical-align: middle;
+  }
+  .information-icon{
+    margin-left:20px;
+  }
+  #dimensioni{
+    text-align: right;
+  }
+
   .black{
     position: fixed;
     z-index: -2;
@@ -43,8 +61,8 @@ page-photo-information {
     height:120px;
   }
   .information-icon{
-    height:30px;
-    width: 30px;
+    height:80px;
+    width: 80px;
   }
   ion-icon{
     transition: all .25s

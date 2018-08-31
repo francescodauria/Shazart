@@ -129,7 +129,7 @@ export class PhotoInformationPage {
 
   goToMaps() {
 
-    let location:string = this.artwork.ubicazione;
+    let location:string = this.artwork.ubicazione+","+this.artwork.ubicazione_citta;
     let geo: any = this.geolocation;
     let nav: any = this.launchNavigator;
     let alertControl = this.alertCtrl;

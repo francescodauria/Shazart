@@ -14,11 +14,13 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding class="login-content">
   <ion-row class="logo-row">
     <ion-col></ion-col>
-    <ion-col width-67>
-      <img src="assets/icon/icon.png"/>
+    <ion-col>
+      <div id="logoDiv">
+      <img id="logo" src="assets/icon/icon.png"/>
+      </div>
     </ion-col>
     <ion-col></ion-col>
   </ion-row>
@@ -42,7 +44,7 @@
 
       <ion-row>
         <ion-col class="signup-col">
-          <button ion-button class="submit-btn" full type="submit">Effettua il login o registrati</button>
+          <button ion-button class="submit-btn" id ="button-submit" full type="submit">Effettua il login o registrati</button>
         </ion-col>
       </ion-row>
 

@@ -28,13 +28,11 @@
       <div class="col text-right">
 
         <div [ngClass]="liked? 'bg-color-white like-button-with-text' : 'bg-color-red like-button'"(click)="this.like()">
-
-
           <ion-icon name="heart" [ngClass]="liked? 'color-red' : 'color-white'" >
 
           </ion-icon>
 
-          <span *ngIf="liked"><br>Liked</span><!-- -->
+          <span id="like" *ngIf="liked"><br>Liked</span><!-- -->
 
 
         </div>
@@ -46,21 +44,24 @@
   </div>
 
 
-  <div>
+  <div id="description">
     &nbsp;&nbsp;
-    <h3 class="titolo_opera">{{artwork.titolo}}</h3>
+    <h2 class="titolo_opera">{{artwork.titolo}} ({{artwork.anno}})</h2>
+    <h6 id="dimensioni">{{artwork.dimensioni}}</h6>
+    <h5 id="artista">{{artwork.artista}}</h5>
+    <br/>
     <p id="descrizione">{{artwork.descrizione}}</p>
-    <p id="artista">{{artwork.artista}}</p>
-    <p id="anno">{{artwork.anno}}</p>
-    <h3 class="titolo_opera">Posizione dell'opera</h3>
+    <br/>
+    <h5 id="position">Si trova a "{{artwork.ubicazione}}, {{artwork.ubicazione_citta}}"</h5>
+    <span style="display: table"><h5 class="position_text">La vuoi raggungere? </h5><img class="information-icon" src="http://odessa888.com/pictures/spec/mapicon.png" (click)= "goToMaps()" /></span>
     <p id="posizione">{{locazione}}</p>
-    <img class="information-icon" src="assets/icon/maps.png" (click)= "goToMaps()" />
+
 
 
 
   </div>
   <div *ngIf="opereArrayPeriodo.length!=0" class="slider-div">
-    <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere del di questo periodo! </h5>
+    <h5 style="margin-bottom: 0.5rem">Magari ti piacciono altre opere di questo periodo! </h5>
     <ion-slides class="image-slider" slidesPerView="2" spaceBetween="10" [loop]="true">
       <ion-slide *ngFor="let opera of opereArrayPeriodo" class="ion-slide" (click)="showDetailsPhoto(opera)">
         <img [src]=opera.img_prev class="thumb-img"/>
