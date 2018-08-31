@@ -101,8 +101,9 @@ export class LoginPage {
 
           loader.present();
           let tempo1= Date.parse(new Date().toISOString());
-
+          //alert("tempo1: " +tempo1);
           let utenteCollection = this.db.collection<any>('/Utenti/', ref => {
+            //alert("ref:"+ref);
             return ref.where("username", "==", this.username)
           });
 
@@ -111,11 +112,11 @@ export class LoginPage {
           this.subscription = this.utenteObservable.map(val => {
             // timeout(3000);
             temp = val;
-            alert("tempo1: " +tempo1);
+            //alert(val);
           }).subscribe(() =>{
 
             let tempo2:number= Date.parse(new Date().toISOString());
-            alert("tempo2: " +tempo2);
+            //alert("tempo2: " +tempo2);
 
             if (temp[0] != undefined) {
               if (temp[0].password == this.password) {
@@ -147,14 +148,21 @@ export class LoginPage {
             }
             else {
 
-              alert("differenza: " +(tempo2-tempo1));
+              //alert("differenza: " +(tempo2-tempo1));
               if (tempo2 - tempo1 > 9000) {
-                loader.dismissAll();
-                this.subscription.unsubscribe();
+
+                //this.subscription.unsubscribe();
                 let messageAlert = this.alertControl.create({
                   title: 'Attenzione!',
                   buttons: [{text: 'Ok',
-                    handler: () => {this.login()}}],
+                    handler: () => {
+                  }},{
+                    text:'Annulla',
+                    handler:()=>{
+                      this.subscription.unsubscribe();
+                      loader.dismissAll();
+                    }
+                  }],
                   cssClass: 'custom-alert',
                   message: "Hei, la connessione sembra essere un po' lenta, verrai reindirizzato il prima possibile"
                 });

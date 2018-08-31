@@ -6,7 +6,6 @@ page-photo-information {
     display: block;
     height: 100%;
     width: 110%;
-    box-shadow: inset 0 0 30px 15px #212121;
     background-repeat: no-repeat;
     margin-right: -20px;
     margin-top: -40px;
@@ -17,7 +16,7 @@ page-photo-information {
   .opaco{
     z-index: -1;
     position: fixed;
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.7);
     height: 100%;
     width: 110%;
     margin-right: -20px;
