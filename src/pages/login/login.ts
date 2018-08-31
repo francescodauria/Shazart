@@ -100,6 +100,8 @@ export class LoginPage {
         else {
 
           loader.present();
+          let tempo1= Date.parse(new Date().toISOString());
+
           let utenteCollection = this.db.collection<any>('/Utenti/', ref => {
             return ref.where("username", "==", this.username)
           });
@@ -108,10 +110,12 @@ export class LoginPage {
           this.utenteObservable = utenteCollection.valueChanges();
           this.subscription = this.utenteObservable.map(val => {
             // timeout(3000);
-
             temp = val;
-
+            alert("tempo1: " +tempo1);
           }).subscribe(() =>{
+
+            let tempo2:number= Date.parse(new Date().toISOString());
+            alert("tempo2: " +tempo2);
 
             if (temp[0] != undefined) {
               if (temp[0].password == this.password) {
@@ -142,62 +146,66 @@ export class LoginPage {
               }
             }
             else {
-              loader.dismissAll();
-              this.subscription.unsubscribe();
-              let messageAlert = this.alertControl.create({
-                title: 'Attenzione!',
-                cssClass: 'custom-alert',
-                message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
-                buttons: [
 
-                  {
-                    text: 'Annulla',
-                    role: 'cancel',
+              alert("differenza: " +(tempo2-tempo1));
+              if (tempo2 - tempo1 > 9000) {
+                loader.dismissAll();
+                this.subscription.unsubscribe();
+                let messageAlert = this.alertControl.create({
+                  title: 'Attenzione!',
+                  buttons: [{text: 'Ok',
+                    handler: () => {this.login()}}],
+                  cssClass: 'custom-alert',
+                  message: "Hei, la connessione sembra essere un po' lenta, verrai reindirizzato il prima possibile"
+                });
+                messageAlert.present();
+              }
+              else {
+                loader.dismissAll();
+                this.subscription.unsubscribe();
+                let messageAlert = this.alertControl.create({
+                  title: 'Attenzione!',
+                  cssClass: 'custom-alert',
+                  message: "Hei, l'username inserito non è presente, vuoi registrarti con questo username?",
+                  buttons: [
 
-                  },
-                  {
-                    text: 'Ok',
-                    handler: () => {
+                    {
+                      text: 'Annulla',
+                      role: 'cancel',
 
-                      this.db.collection("Utenti").doc(this.username).set({
-                        foto_profilo:"",
-                        nome: "",
-                        cognome: "",
-                        email: "",
-                        informazioni: "Ciao sto usando Shazart!",
-                        nazionalità: "",
-                        password: this.password,
-                        sesso: "",
-                        username: this.username,
-                        like: [],
-                        scan: []
-                      })
+                    },
+                    {
+                      text: 'Ok',
+                      handler: () => {
 
-                      localStorage.setItem("username", this.username);
-                      localStorage.setItem("password", this.password);
-                      loader.dismissAll();
-                      this.navCtrl.setRoot(HelloIonicPage);
-                      this.menu.enable(true);
-                    }
-                  },
-                ]
-              });
-              messageAlert.present();
+                        this.db.collection("Utenti").doc(this.username).set({
+                          foto_profilo: "",
+                          nome: "",
+                          cognome: "",
+                          email: "",
+                          informazioni: "Ciao sto usando Shazart!",
+                          nazionalità: "",
+                          password: this.password,
+                          sesso: "",
+                          username: this.username,
+                          like: [],
+                          scan: []
+                        })
+
+                        localStorage.setItem("username", this.username);
+                        localStorage.setItem("password", this.password);
+                        loader.dismissAll();
+                        this.navCtrl.setRoot(HelloIonicPage);
+                        this.menu.enable(true);
+                      }
+                    },
+                  ]
+                });
+                messageAlert.present();
+              }
+
+
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
           });
