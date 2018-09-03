@@ -2,18 +2,16 @@ page-photo-information {
 
   ion-content{
     font-family: "Courgette", "sans-serif";
-    font-size: 115%;
   }
   #descrizione{
     font-size: 115%;
   }
+
   .position_text{
     display: table-cell;
     vertical-align: middle;
   }
-  .information-icon{
-    margin-left:20px;
-  }
+
   #dimensioni{
     text-align: right;
   }
@@ -61,8 +59,9 @@ page-photo-information {
     height:120px;
   }
   .information-icon{
+    margin-left:20px;
     height:80px;
-    width: 80px;
+    width: 120px;
   }
   ion-icon{
     transition: all .25s
@@ -117,6 +116,9 @@ page-photo-information {
   .color-red {
     font-size: 250%;
     color: #ff3b30 !important;
+    margin-bottom: -3px;
+    margin-left:4px;
+
   }
 
   .bg-color-red {
@@ -126,6 +128,7 @@ page-photo-information {
     vertical-align: middle;
     font-size: 440%;
     color: #ffffff !important;
+    margin-top: -3px;
   }
   .color-yellow {
     color: #ffcc00 !important;
