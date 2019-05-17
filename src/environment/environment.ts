@@ -8,5 +8,5 @@ export const environment ={
     storageBucket: "",
     messagingSenderId: "44960572037"
   },
-  googleCloudVisionAPIKey:"AIzaSyANJRRM3JGLOgRagZaj8xaPC0FhjeCNhvg"
+  googleCloudVisionAPIKey:""
 }
